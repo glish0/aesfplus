@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { Navigation, Pagination } from "swiper/modules";
 
 interface Slide {
   title: string;
