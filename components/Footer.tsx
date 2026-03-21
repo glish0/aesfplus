@@ -26,12 +26,12 @@ export function Footer({ dict }: FooterProps) {
 
                 {/* Brand & Description */}
                 <div className="col-span-1 md:col-span-1">
-                    <Link href="/" className="flex flex-col items-center gap-3">
+                    <Link href="/" className="flex flex-col items-start gap-3">
                         <Image
-                            src="/logo.png"
+                            src="/esf-logo.jpeg"
                             alt="logo"
-                            width={48}
-                            height={48}
+                            width={52}
+                            height={52}
                             className="border"
                         />
                         {/*  <span className="hidden sm:block text-sm border font-semibold">
