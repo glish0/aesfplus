@@ -124,8 +124,8 @@ export const en = {
     subtitle: "Testimonials from our volunteers and beneficiaries",
     cta: "Donate Now",
     items: [
-      { id: 1, name: "Marie K.", role: "Volunteer", quote: "An incredible human experience. Seeing the children's smiles is priceless.", image: "Marie" },
-      { id: 2, name: "Jean P.", role: "Donor", quote: "I know my money goes directly to the people who need it. Total transparency.", image: "Jean" },
+      { id: 1, name: "Marie J.", role: "Volunteer", quote: "An incredible human experience. Seeing the children's smiles is priceless.", image: "Marie" },
+      { id: 2, name: "Beltrude  Mpeck.", role: "Animatrice d'atelier", quote: "I know my money goes directly to the people who need it. Total transparency.", image: "Beltrude" },
       { id: 3, name: "Sophie L.", role: "Partner", quote: "ESF+ does wonderful work on the ground. Proud to collaborate with them.", image: "Sophie" },
       { id: 4, name: "David M.", role: "Doctor", quote: "The organized health campaigns literally save lives.", image: "David" },
 

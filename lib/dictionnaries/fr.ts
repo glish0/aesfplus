@@ -125,14 +125,11 @@ export const fr = {
     subtitle: "Témoignages de nos bénévoles et bénéficiaires",
     cta: "Faire un don maintenant",
     items: [
-      { id: 1, name: "Marie K.", role: "Bénévole", quote: "Une expérience humaine incroyable. Voir le sourire des enfants n'a pas de prix.", image: "Marie" },
-      { id: 2, name: "Jean P.", role: "Donateur", quote: "Je sais que mon argent va directement aux personnes qui en ont besoin. Transparence totale.", image: "Jean" },
-      { id: 3, name: "Sophie L.", role: "Partenaire", quote: "ESF+ fait un travail formidable sur le terrain. Fier de collaborer avec eux.", image: "Sophie" },
-      { id: 4, name: "David M.", role: "Médecin", quote: "Les campagnes de santé organisées sauvent littéralement des vies.", image: "David" },
-      { id: 5, name: "Claire T.", role: "Enseignante", quote: "Grâce à eux, mes élèves ont reçu des fournitures scolaires indispensables.", image: "Claire" },
-      { id: 6, name: "Thomas R.", role: "Architecte", quote: "Participer à la construction de l'école a été le projet de ma vie.", image: "Thomas" },
-      { id: 7, name: "Nadia B.", role: "Infirmière", quote: "L'équipe est dévouée et professionnelle. Un honneur de servir à leurs côtés.", image: "Nadia" },
-      { id: 8, name: "Paul G.", role: "Agriculteur", quote: "Leur soutien technique a transformé nos récoltes et notre quotidien.", image: "Paul" }
+      { id: 1, name: "Beltrude Mpeck", role: "Bénévole", quote: "Une expérience humaine incroyable. Voir le sourire des enfants n'a pas de prix.", image: "/testimony/beltrude.png" },
+      { id: 2, name: "Jean P.", role: "Donateur", quote: "Je sais que mon argent va directement aux personnes qui en ont besoin. Transparence totale.", image: "/testimony/josephine.png" },
+      { id: 3, name: "Sophie L.", role: "Partenaire", quote: "ESF+ fait un travail formidable sur le terrain. Fier de collaborer avec eux.", image: "/testimony/beltrude.png" },
+      { id: 4, name: "Marie M.", role: "Benéficiaire", quote: "Les campagnes de santé organisées sauvent littéralement des vies.", image: "/femme-chef-pygmee-baka.jpg" },
+
     ]
   }
 }
