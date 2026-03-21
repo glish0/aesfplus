@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Quote } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
 
 interface TestimonialItem {
     id: number;
@@ -22,8 +23,17 @@ interface TestimonialsDict {
 }
 
 export default function TestimonialsSection({ dict }: { dict: TestimonialsDict }) {
+    const router = useRouter();
+    const params = useParams();
+    const locale = params.locale as "fr" | "en"; // récupère 'fr' ou 'en'
+
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+    const handleDonate = () => {
+        const path = locale === "fr" ? "/fr/faire-un-don" : "/en/faire-un-don";
+        router.push(path);
+    };
 
     return (
         <section className="py-24 px-4 bg-white px-4 lg:px-2xl overflow-hidden relative">
@@ -66,7 +76,7 @@ export default function TestimonialsSection({ dict }: { dict: TestimonialsDict }
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="relative w-12 h-12 rounded-full overflow-hidden bg-slate-100 ring-2 ring-orange-100 group-hover:ring-orange-400 transition-all">
                                     <Image
-                                        src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${item.image}`}
+                                        src={item.image}
                                         alt={item.name}
                                         fill
                                         className="object-cover"
@@ -100,12 +110,12 @@ export default function TestimonialsSection({ dict }: { dict: TestimonialsDict }
                     transition={{ delay: 0.6, duration: 0.5 }}
                     className="text-center"
                 >
-                    <Link
-                        href="/don"
-                        className="inline-flex items-center justify-center bg-orange-600 hover:bg-orange-700 text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg shadow-orange-600/30 transition-all duration-300 hover:scale-105 transform"
+                    <div
+                        onClick={handleDonate}
+                        className="inline-flex items-center cursor-pointer justify-center bg-orange-600 hover:bg-orange-700 text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg shadow-orange-600/30 transition-all duration-300 hover:scale-105 transform"
                     >
                         {dict.cta}
-                    </Link>
+                    </div>
                 </motion.div>
             </div>
         </section>
