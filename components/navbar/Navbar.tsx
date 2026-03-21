@@ -18,11 +18,11 @@ export async function Navbar({ locale }: { locale: Locale }) {
         {/* Logo */}
         <Link href="/" className="flex flex-col items-center gap-3">
           <Image
-            src="/logo.png"
+            src="/esf-logo.jpeg"
             alt="logo"
-            width={48}
-            height={48}
-            className="border"
+            width={52}
+            height={52}
+
           />
           {/*  <span className="hidden sm:block text-sm border font-semibold">
             {dict.nav.slogan}
@@ -32,7 +32,7 @@ export async function Navbar({ locale }: { locale: Locale }) {
         {/* Desktop */}
         <nav className="hidden lg:flex items-center gap-8">
           <Link href={'/fr/'} className="font-medium text-gray-700 hover:text-black transition">{dict.nav.home}</Link>
-          <NavDropdown
+          {/* <NavDropdown
             label={dict.nav.fights}
             locale={locale}
             items={[
@@ -49,7 +49,8 @@ export async function Navbar({ locale }: { locale: Locale }) {
                 description: "Scolarisation des enfants",
               },
             ]}
-          />
+          /> */}
+          <Link href={'/fr/actions'} className="font-medium text-gray-700 hover:text-black transition">{dict.nav.fights}</Link>
 
           <NavDropdown
             label={dict.nav.act}
@@ -82,15 +83,15 @@ export async function Navbar({ locale }: { locale: Locale }) {
             items={[
               {
                 label: "Nos réalisations",
-                href: "/victories",
+                href: "/nos-realisations",
                 image: "/esf2.jpg",
                 description: "Découvrez notre impact",
               },
               {
-                label: "Témoignages",
-                href: "/testimonials",
+                label: "La galerie",
+                href: "/la-galerie-des-projets-esf",
                 image: "/esf6.jpg",
-                description: "Ils parlent de nous",
+                description: "ESF+ en images",
               },
             ]}
           />
