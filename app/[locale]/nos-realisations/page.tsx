@@ -1,14 +1,19 @@
 import { getDictionary } from "@/lib/dictionnaries/dictionnaries";
-import { Locale } from "@/lib/i18n";
-
+import { isValidLocale } from "@/lib/i18n";
 import NosRealisations from "@/components/realisation/NosRealisation";
+import { notFound } from "next/navigation";
 
 export default async function NosRealisationsPage({
     params,
 }: {
-    params: Promise<{ locale: Locale }>;
+    params: { locale: string }; // ✅ correct
 }) {
-    const { locale } = await params;
+    const locale = params.locale;
+
+    if (!isValidLocale(locale)) {
+        notFound();
+    }
+
     const dict = await getDictionary(locale);
 
     return <NosRealisations dict={dict.about} />;

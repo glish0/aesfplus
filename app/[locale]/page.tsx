@@ -11,15 +11,15 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 export default async function Home({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: { locale: Locale };
 }) {
-  const { locale } = await params;
+  const { locale } = params;
+
   const dict = await getDictionary(locale);
 
   return (
     <div className="flex w-full flex-col items-center justify-center min-h-screen ">
-      <main className="flex flex-col  items-center sm:items-start w-full">
-
+      <main className="flex flex-col items-center sm:items-start w-full">
         <PygmySwiper dict={dict} />
         <StatsSection dict={dict.stats} />
         <TestimonialsSection dict={dict.testimonials} />

@@ -1,13 +1,19 @@
 import { getDictionary } from "@/lib/dictionnaries/dictionnaries";
-import { Locale } from "@/lib/i18n";
+import { isValidLocale } from "@/lib/i18n";
 import AboutContent from "@/components/about/AboutContent";
+import { notFound } from "next/navigation";
 
 export default async function AboutPage({
     params,
 }: {
-    params: Promise<{ locale: Locale }>;
+    params: { locale: string }; // ✅ FIX
 }) {
-    const { locale } = await params;
+    const locale = params.locale;
+
+    if (!isValidLocale(locale)) {
+        notFound();
+    }
+
     const dict = await getDictionary(locale);
 
     return <AboutContent dict={dict.about} />;

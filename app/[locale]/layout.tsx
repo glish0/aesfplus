@@ -1,25 +1,25 @@
-
-
 import { Navbar } from "@/components/navbar/Navbar"
 import { Footer } from "@/components/Footer"
 import { isValidLocale, Locale } from "@/lib/i18n"
 import { getDictionary } from "@/lib/dictionnaries/dictionnaries"
 import { notFound } from "next/navigation"
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: {
+
+type Props = {
   children: React.ReactNode
-  params: Promise<{ locale: Locale }>
-}) {
-  const { locale } = await params
+  params: {
+    locale: string
+  }
+}
+
+export default async function LocaleLayout({ children, params }: Props) {
+  const locale = params.locale as Locale
 
   if (!isValidLocale(locale)) {
     notFound()
   }
 
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary(locale)
 
   return (
     <html lang={locale}>

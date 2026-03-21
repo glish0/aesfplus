@@ -1,13 +1,19 @@
 import { getDictionary } from "@/lib/dictionnaries/dictionnaries";
-import { Locale } from "@/lib/i18n";
+import { isValidLocale } from "@/lib/i18n";
 import BecomePartner from "@/components/partenaire/BecomePartner";
+import { notFound } from "next/navigation";
 
 export default async function BecomePartnerPage({
     params,
 }: {
-    params: Promise<{ locale: Locale }>;
+    params: { locale: string }; // ✅ FIX
 }) {
-    const { locale } = await params;
+    const locale = params.locale;
+
+    if (!isValidLocale(locale)) {
+        notFound();
+    }
+
     const dict = await getDictionary(locale);
 
     return <BecomePartner dict={dict.about} />;
