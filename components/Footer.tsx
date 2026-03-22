@@ -47,9 +47,9 @@ export function Footer({ dict }: FooterProps) {
                 <div>
                     <h4 className="text-white font-semibold mb-4">{dict.footer.quick_links}</h4>
                     <ul className="space-y-2">
-                        <li><Link href="/" className="hover:text-orange-400 transition-colors">{dict.nav.home}</Link></li>
-                        <li><Link href="/about" className="hover:text-orange-400 transition-colors">{dict.nav.about}</Link></li>
-                        <li><Link href="/don" className="hover:text-orange-400 transition-colors">{dict.nav.donate}</Link></li>
+                        <li><Link href="/fr/" className="hover:text-orange-400 transition-colors">{dict.nav.home}</Link></li>
+                        <li><Link href="/fr/about" className="hover:text-orange-400 transition-colors">{dict.nav.about}</Link></li>
+                        <li><Link href="/fr/faire-un-don" className="hover:text-orange-400 transition-colors">{dict.nav.donate}</Link></li>
                     </ul>
                 </div>
 
@@ -63,7 +63,8 @@ export function Footer({ dict }: FooterProps) {
                         </li>
                         <li className="flex items-center gap-3">
                             <Phone className="w-5 h-5 text-orange-500 shrink-0" />
-                            <span>+237 6 99 99 99 99</span> {/* Dedicated placeholder */}
+                            <span>+237 657 547 585</span> {/* Dedicated placeholder */}
+                            <span>+237 693 303 443</span> {/* Dedicated placeholder */}
                         </li>
                         <li className="flex items-center gap-3">
                             <Mail className="w-5 h-5 text-orange-500 shrink-0" />

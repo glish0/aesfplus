@@ -153,6 +153,7 @@ export function MobileMenu({ labels }: MobileMenuProps) {
                   </div>
                 </AccordionContent>
               </AccordionItem>
+              <Link href={'/fr/about'} className="font-medium text-gray-700 hover:text-black transition">{'A propos'}</Link>
             </Accordion>
           </nav>
 

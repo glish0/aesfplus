@@ -7,6 +7,7 @@ import { Locale } from "@/lib/i18n";
 
 import NewsletterSection from "@/components/NewsletterSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import PartnerSection from "@/components/partenaire/Partenaire";
 
 export default async function Home({
   params,
@@ -22,6 +23,7 @@ export default async function Home({
       <main className="flex flex-col items-center sm:items-start w-full">
         <PygmySwiper dict={dict} />
         <StatsSection dict={dict.stats} />
+        <PartnerSection />
         <TestimonialsSection dict={dict.testimonials} />
         <NewsletterSection dict={dict.newsletter} />
       </main>

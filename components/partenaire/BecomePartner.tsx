@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { AboutDict } from "@/types";
 
+import { AboutDict } from "@/types";
+import { InlineWidget } from "react-calendly";
 import { Button } from "@/components/ui/button";
+import React, { useEffect, useRef } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 
 
 import {
@@ -28,6 +30,7 @@ import Link from "next/link";
 
 import { Card, CardContent } from "../ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../ui/tabs";
+import PartnerSection from "./Partenaire";
 
 // Interface pour les témoignages
 interface Testimonial {
@@ -39,8 +42,88 @@ interface Testimonial {
     type: "partner" | "beneficiary";
 }
 
+interface Partner {
+    id: number;
+    name: string;
+    logo: string;
+    website?: string;
+}
+
 export default function BecomePartner({ dict }: { dict: AboutDict }) {
     const [activeLink, setActiveLink] = useState("");
+    const [showCalendly, setShowCalendly] = useState(false);
+    const partners: Partner[] = [
+        {
+            id: 1,
+            name: "MTN",
+            logo: "/mtn2.jpg",
+
+        },
+        {
+            id: 2,
+            name: "MINSANTE",
+            logo: "/minsante.png",
+
+        },
+        {
+            id: 3,
+            name: "MINAS",
+            logo: "/minas.png",
+
+        },
+        {
+            id: 4,
+            name: "FESADE",
+            logo: "/fesade.jpg",
+
+        },
+
+    ];
+
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const controls = useAnimation();
+
+    useEffect(() => {
+        const scrollContainer = scrollRef.current;
+        if (!scrollContainer) return;
+
+        let animationFrameId: number;
+        let scrollPosition = 0;
+
+        const autoScroll = () => {
+            if (!scrollContainer) return;
+
+            scrollPosition += 1;
+
+            if (scrollPosition >= scrollContainer.scrollWidth / 2) {
+                scrollPosition = 0;
+            }
+
+            scrollContainer.scrollLeft = scrollPosition;
+            animationFrameId = requestAnimationFrame(autoScroll);
+        };
+
+        const startAutoScroll = () => {
+            animationFrameId = requestAnimationFrame(autoScroll);
+        };
+
+        const stopAutoScroll = () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+        };
+
+        startAutoScroll();
+
+        scrollContainer.addEventListener('mouseenter', stopAutoScroll);
+        scrollContainer.addEventListener('mouseleave', startAutoScroll);
+
+        return () => {
+            stopAutoScroll();
+            scrollContainer.removeEventListener('mouseenter', stopAutoScroll);
+            scrollContainer.removeEventListener('mouseleave', startAutoScroll);
+        };
+    }, []);
 
     // Variants pour les animations Framer Motion
     const fadeInUp = {
@@ -532,6 +615,87 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
                 </div>
             </section>
 
+            <section className="py-16 ">
+                <div className="container mx-auto px-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
+                        className="text-center mb-12"
+                    >
+                        <h2 className="text-4xl font-bold text-gray-800 mb-4">
+                            Nos Partenaires
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Découvrez les entreprises qui nous font confiance et avec qui nous collaborons
+                        </p>
+                        <div className="w-24 h-1 bg-indigo-600 mx-auto mt-4 rounded-full"></div>
+                    </motion.div>
+
+                    <div className="relative overflow-hidden">
+                        <div
+                            ref={scrollRef}
+                            className="flex overflow-x-auto scrollbar-hide gap-8 py-8 px-4"
+                            style={{
+                                scrollBehavior: 'smooth',
+                                WebkitOverflowScrolling: 'touch',
+                                scrollbarWidth: 'none',
+                                msOverflowStyle: 'none'
+                            }}
+                        >
+                            {/* Dupliquer les partenaires pour un effet infini */}
+                            {[...partners, ...partners].map((partner, index) => (
+                                <motion.div
+                                    key={`${partner.id}-${index}`}
+                                    whileHover={{ scale: 1.05 }}
+                                    className="flex-none"
+                                >
+                                    <a
+                                        href={partner.website}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="block group"
+                                    >
+                                        <div className="bg-white rounded-xl shadow-lg p-2 w-48 h-28 flex items-center justify-center transition-all duration-300 group-hover:shadow-xl group-hover:shadow-indigo-100 border-2 border-transparent group-hover:border-indigo-200">
+                                            <img
+                                                src={partner.logo}
+                                                alt={partner.name}
+                                                className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-110"
+                                            />
+                                        </div>
+                                        <p className="text-center mt-3 text-gray-600 font-medium group-hover:text-indigo-600 transition-colors">
+                                            {partner.name}
+                                        </p>
+                                    </a>
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        {/* Effets de gradient sur les côtés */}
+                        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none"></div>
+                        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-gray-100 to-transparent pointer-events-none"></div>
+                    </div>
+
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="text-center mt-8"
+                    >
+                        <p className="text-sm text-gray-500">
+                            Survolez les logos pour mettre en pause le défilement
+                        </p>
+                    </motion.div>
+                </div>
+
+                <style jsx>{`
+                    .scrollbar-hide::-webkit-scrollbar {
+                      display: none;
+                    }
+                  `}</style>
+            </section>
+
             {/* Section 5 : Témoignages */}
             <section id="temoignages" className="w-full py-20 bg-gray-50">
                 <div className="max-w-5xl mx-auto px-4">
@@ -617,7 +781,7 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
                                             href="tel:+237123456789"
                                             className="text-lg font-semibold hover:text-blue-200 transition-colors"
                                         >
-                                            +237 6 23 45 67 89
+                                            +237 657 547 585
                                         </a>
                                     </div>
                                 </div>
@@ -644,21 +808,7 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
                                         <p className="font-medium">Lun - Ven : 9h00 - 18h00</p>
                                     </div>
                                 </div>
-                                <div className="mt-6 pt-6 border-t border-blue-400">
-                                    <h3 className="font-bold mb-3">Contacts clés :</h3>
-                                    <ul className="space-y-3 text-sm">
-                                        <li>
-                                            <span className="text-blue-200">Marie Cointy</span>
-                                            <br />
-                                            Chargée de Partenariats
-                                        </li>
-                                        <li>
-                                            <span className="text-blue-200">Vanessa Thomas</span>
-                                            <br />
-                                            Responsable du pôle Partenariats
-                                        </li>
-                                    </ul>
-                                </div>
+
                             </div>
                         </motion.div>
 
@@ -675,13 +825,25 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
                                         objectifs RSE.
                                     </p>
                                     <div className="space-y-4">
-                                        <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6 text-lg">
-                                            Proposer un premier rendez-vous
-                                            <ArrowRight className="ml-2 w-5 h-5" />
+
+
+                                        <Button
+                                            onClick={() => setShowCalendly(true)}
+                                            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6 text-lg"
+                                        >
+                                            Réservez un appel gratuit de 30 min
                                         </Button>
-                                        <Button variant="outline" className="w-full py-6 text-lg">
+                                        <Button asChild className="w-full bg-green-600 hover:bg-green-700 text-white py-6 text-lg">
+                                            <a
+                                                href="https://wa.me/237657547585?text=Bonjour%20je%20souhaite%20discuter%20d'un%20partenariat%20avec%20ESF+"
+                                                target="_blank"
+                                            >
+                                                Discuter sur WhatsApp
+                                            </a>
+                                        </Button>
+                                        {/*  <Button variant="outline" className="w-full py-6 text-lg">
                                             Télécharger notre brochure partenaires
-                                        </Button>
+                                        </Button> */}
                                     </div>
                                     <p className="text-sm text-gray-500 mt-6 text-center">
                                         Ou contactez-nous directement par téléphone ou email.
@@ -745,6 +907,29 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
                     </div>
                 </div>
             </footer>
+            {showCalendly && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+
+                    <div className="bg-white rounded-xl w-full max-w-4xl h-[80vh] relative shadow-2xl">
+
+                        {/* Bouton fermer */}
+                        <button
+                            onClick={() => setShowCalendly(false)}
+                            className="absolute top-4 right-4 text-gray-500 hover:text-black text-xl"
+                        >
+                            ✕
+                        </button>
+
+                        {/* Calendly */}
+                        <InlineWidget
+                            url="https://calendly.com/mpeckbeltrude/30min"
+                            styles={{ height: "100%" }}
+                        />
+                    </div>
+
+                </div>
+            )}
         </div>
+
     );
 }

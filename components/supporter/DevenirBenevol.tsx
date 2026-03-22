@@ -9,6 +9,8 @@ export default function VolunteerPage({ dict }: { dict: AboutDict }) {
         name: "",
         email: "",
         phone: "",
+        profession: "",
+        ville: "",
         motivation: "",
     });
 
@@ -61,7 +63,7 @@ export default function VolunteerPage({ dict }: { dict: AboutDict }) {
                         Devenir bénévole
                     </h1>
 
-                    <p className="text-lg max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-lg max-w-2xl font-bold mx-auto leading-relaxed">
                         Espoir Sans Frontière+ (ESF+) est une organisation humanitaire dédiée
                         à l'assistance et à la protection des personnes vulnérables.
                         En rejoignant notre équipe, vous contribuez directement à améliorer
@@ -133,6 +135,30 @@ export default function VolunteerPage({ dict }: { dict: AboutDict }) {
                             name="phone"
                             placeholder="Téléphone"
                             value={form.phone}
+                            onChange={handleChange}
+                            className="w-full p-3 border rounded"
+                            required
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0, transition: { delay: 0.3 } }}
+                        />
+
+                        <motion.input
+                            type="text"
+                            name="profession"
+                            placeholder="profession"
+                            value={form.profession}
+                            onChange={handleChange}
+                            className="w-full p-3 border rounded"
+                            required
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0, transition: { delay: 0.3 } }}
+                        />
+
+                        <motion.input
+                            type="text"
+                            name="ville"
+                            placeholder="ville"
+                            value={form.ville}
                             onChange={handleChange}
                             className="w-full p-3 border rounded"
                             required
