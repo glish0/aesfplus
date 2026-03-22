@@ -41,6 +41,11 @@ export default function DonationPage() {
         setError(null);
         setSuccess(false);
 
+        if (!formData.email || !formData.firstName || !formData.phoneNumber) {
+            setError("Veuillez remplir tous les champs obligatoires");
+            return;
+        }
+
         startTransition(async () => {
             try {
                 const res = await fetch("/api/pay", {
@@ -52,20 +57,22 @@ export default function DonationPage() {
                         amount: selectedAmount,
                         phoneNumber: formData.phoneNumber,
                         firstName: formData.firstName,
+                        lastName: formData.lastName,
+                        email: formData.email,
                     }),
-
                 });
 
                 const data = await res.json();
-                console.log('body', data)
 
                 if (!res.ok) {
                     throw new Error(data.error);
                 }
 
-                console.log("Response:", data);
-
-                setSuccess(true);
+                if (data.status === "success") {
+                    setSuccess(true);
+                } else {
+                    setError("Paiement en attente...");
+                }
 
             } catch (err: any) {
                 setError(err.message || "Erreur paiement");

@@ -5,19 +5,28 @@ export async function POST(req: NextRequest) {
         const body = await req.json();
         const { amount, phoneNumber, firstName } = body;
 
-        // ✅ Validation
-        if (!amount || !phoneNumber) {
+        // ✅ Validation solide
+        if (
+            !amount ||
+            typeof amount !== "number" ||
+            amount < 100 ||
+            !phoneNumber ||
+            !phoneNumber.startsWith("237")
+        ) {
             return NextResponse.json(
                 { error: "Données invalides" },
                 { status: 400 }
             );
         }
 
-        // 🔒 Appel API Mynkwa (serveur uniquement)
+        // ⏱ Timeout
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 10000);
+
         const response = await fetch("https://api.pay.mynkwa.com/collect", {
             method: "POST",
             headers: {
-                "X-API-Key": 'aap_pktnD6ObcS8mzUJ1B',
+                "X-API-Key": process.env.MYNKWA_API_KEY!,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -25,24 +34,33 @@ export async function POST(req: NextRequest) {
                 phoneNumber,
                 description: `Donation from ${firstName || "Anonymous"}`,
             }),
+            signal: controller.signal,
         });
+
+        clearTimeout(timeout);
 
         const data = await response.json();
 
         if (!response.ok) {
+            const errorMessage =
+                data?.message ||
+                data?.error ||
+                "Erreur paiement";
+
             return NextResponse.json(
-                { error: data.message || "Erreur paiement" },
+                { error: errorMessage },
                 { status: 500 }
             );
         }
 
         return NextResponse.json({
             success: true,
-            data,
+            status: data.status || "pending",
+            transactionId: data.transactionId,
         });
 
     } catch (error) {
-        console.error("Erreur API:", error);
+        console.error("Erreur API Mynkwa:", error);
 
         return NextResponse.json(
             { error: "Erreur serveur" },
