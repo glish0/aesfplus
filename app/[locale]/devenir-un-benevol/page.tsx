@@ -6,9 +6,9 @@ import { notFound } from "next/navigation";
 export default async function BenevolPage({
     params,
 }: {
-    params: { locale: string }; // ✅ FIX
+    params: Promise<{ locale: string }>; // ✅ params is a Promise
 }) {
-    const locale = params.locale;
+    const { locale } = await params; // ✅ await the params
 
     if (!isValidLocale(locale)) {
         notFound();

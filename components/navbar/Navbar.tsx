@@ -95,6 +95,7 @@ export async function Navbar({ locale }: { locale: Locale }) {
               },
             ]}
           />
+          <Link href={'/fr/about'} className="font-medium text-gray-700 hover:text-black transition">{dict.nav.about}</Link>
         </nav>
 
         <div className="hidden lg:flex lg:flex-col items-center gap-4 ">

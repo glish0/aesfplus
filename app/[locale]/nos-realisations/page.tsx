@@ -6,9 +6,9 @@ import { notFound } from "next/navigation";
 export default async function NosRealisationsPage({
     params,
 }: {
-    params: { locale: string }; // ✅ correct
+    params: Promise<{ locale: string }>; // 👈 Change: params is a Promise
 }) {
-    const locale = params.locale;
+    const { locale } = await params; // 👈 Change: await the params
 
     if (!isValidLocale(locale)) {
         notFound();

@@ -6,9 +6,9 @@ import { notFound } from "next/navigation";
 export default async function GaleryPage({
     params,
 }: {
-    params: { locale: string }; // ✅ FIX
+    params: Promise<{ locale: string }>; // ✅ FIX: params is now a Promise
 }) {
-    const locale = params.locale;
+    const { locale } = await params; // ✅ FIX: await the params Promise
 
     if (!isValidLocale(locale)) {
         notFound();

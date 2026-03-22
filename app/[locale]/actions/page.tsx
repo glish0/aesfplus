@@ -1,14 +1,14 @@
+import ActivitiesPage from "@/components/actions/NosActivite";
 import { getDictionary } from "@/lib/dictionnaries/dictionnaries";
 import { isValidLocale } from "@/lib/i18n";
-import ActivitiesPage from "@/components/actions/NosActivite";
 import { notFound } from "next/navigation";
 
 export default async function ActionsPage({
     params,
 }: {
-    params: { locale: string }; // ✅ correct
+    params: Promise<{ locale: string }>; // ✅ params is a Promise
 }) {
-    const locale = params.locale;
+    const { locale } = await params; // ✅ await the params
 
     if (!isValidLocale(locale)) {
         notFound();
