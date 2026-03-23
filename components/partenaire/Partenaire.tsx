@@ -14,12 +14,6 @@ interface Partner {
 const PartnerSection: React.FC = () => {
     const partners: Partner[] = [
         {
-            id: 1,
-            name: "MTN",
-            logo: "/mtn2.jpg",
-
-        },
-        {
             id: 2,
             name: "MINSANTE",
             logo: "/minsante.png",
