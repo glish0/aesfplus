@@ -3,7 +3,7 @@ export const fr = {
   nav: {
     home: "Accueil",
     about: "À propos",
-    fights: "Nos Actions",
+    fights: "Nos Domaines",
     act: "Agir avec nous",
     victories: "Nos victoires",
     inform: "Je m’informe",

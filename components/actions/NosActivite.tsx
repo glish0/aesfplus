@@ -68,11 +68,7 @@ export default function ActivitiesPage() {
             title: "Droits des enfants",
             desc: "Journée de l’enfant africain, sensibilisation aux droits et à l’éducation.",
         },
-        {
-            icon: Activity,
-            title: "Renforcement des capacités",
-            desc: "Formations, leadership, état civil, productivité.",
-        },
+
     ];
 
     // 🔥 ACTIVITÉS (timeline)

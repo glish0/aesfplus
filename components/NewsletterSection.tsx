@@ -26,7 +26,7 @@ export default function NewsletterSection({ dict }: { dict: NewsletterDict }) {
     };
 
     return (
-        <section className="py-20 w-full px-4 bg-slate-900 border-t border-slate-800 overflow-hidden relative">
+        <section id="contact" className="py-20 w-full px-4 bg-slate-900 border-t border-slate-800 overflow-hidden relative">
             {/* Background Accents */}
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#F79600]/10 rounded-full blur-[100px] pointer-events-none" />
             <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#F79600]/10 rounded-full blur-[100px] pointer-events-none" />

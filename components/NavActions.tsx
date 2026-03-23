@@ -29,7 +29,7 @@ export function NavActions({ labels }: NavActionsProps) {
 
   return (
     <div className="flex gap-3">
-      <Button variant="outline">{labels.inform}</Button>
+      <Button id="contact" variant="outline">{labels.inform}</Button>
       <Button onClick={handleDonate} className="bg-[#f5cc10] font-bold  uppercase">{labels.donate}</Button>
     </div>
   )

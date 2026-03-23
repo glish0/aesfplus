@@ -108,7 +108,7 @@ export async function Navbar({ locale }: { locale: Locale }) {
             >
               <FaFacebookF className="h-4 w-4 text-blue-600 hover:opacity-80 transition" />
             </Link>
-            <LanguageSwitcher currentLocale={locale} />
+            {/* <LanguageSwitcher currentLocale={locale} /> */}
           </div>
           <div className=" border-t pt-2">
             <NavActions labels={dict.nav} />
