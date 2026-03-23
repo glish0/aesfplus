@@ -50,8 +50,8 @@ const StatsSection = ({ dict }: { dict: StatsDict }) => {
                 style={{ y: backgroundY }}
                 className="absolute inset-0 opacity-30 pointer-events-none"
             >
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-300 rounded-full mix-blend-multiply filter blur-[100px] opacity-70" />
-                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-yellow-200 rounded-full mix-blend-multiply filter blur-[100px] opacity-70" />
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#f5cc10] rounded-full mix-blend-multiply filter blur-[100px] opacity-70" />
+                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#f5cc10] rounded-full mix-blend-multiply filter blur-[100px] opacity-70" />
             </motion.div>
 
             <div className="relative max-w-7xl lg:max-w-5xl mx-auto z-10">
@@ -63,7 +63,7 @@ const StatsSection = ({ dict }: { dict: StatsDict }) => {
                         transition={{ duration: 0.6 }}
                         className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight"
                     >
-                        {dict.title} <span className="text-orange-600">{dict.title_suffix}</span>
+                        {dict.title} <span className="text-[#f5cc10]">{dict.title_suffix}</span>
                     </motion.h2>
 
                     <motion.div
@@ -73,7 +73,7 @@ const StatsSection = ({ dict }: { dict: StatsDict }) => {
                         className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
                     >
                         <p>{dict.description_1}</p>
-                        <p className="font-semibold text-orange-700 mt-2">{dict.description_2}</p>
+                        <p className="font-bold text-black mt-2">{dict.description_2}</p>
                     </motion.div>
                 </div>
 
@@ -98,7 +98,7 @@ const StatsSection = ({ dict }: { dict: StatsDict }) => {
                                         duration={3}
                                         suffix={stat.suffix}
                                         separator=" "
-                                        className="bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-amber-600"
+                                        className="bg-clip-text text-transparent bg-[#f5cc10]"
                                     />
                                 ) : (
                                     <span className="text-slate-200">0</span>
@@ -117,10 +117,10 @@ const StatsSection = ({ dict }: { dict: StatsDict }) => {
                     className="text-center mt-16"
                 >
                     <Link
-                        href="/don"
-                        className="inline-flex items-center justify-center bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg shadow-orange-500/30 transition-all duration-300 hover:scale-105 transform hover:shadow-orange-500/50"
+                        href="/faire-un-don"
+                        className="inline-flex items-center justify-center bg-[#f5cc10]  hover:from-orange-600 hover:to-amber-600 text-white font-extrabold text-lg px-10 py-4 rounded-full shadow-lg shadow-orange-500/30 transition-all duration-300 hover:scale-105 transform hover:shadow-orange-500/50"
                     >
-                        💛 {dict.cta}
+                        {dict.cta}
                     </Link>
                 </motion.div>
             </div>
