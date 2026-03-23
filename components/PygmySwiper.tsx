@@ -12,10 +12,10 @@ import { useRouter, useParams } from 'next/navigation';
 
 const images = [
     '/pygmee1.jpg',
-    '/pygme2.jpg',
     '/pygme3.jpg',
-    '/pygme4.jpg',
-    '/pygme5.jpg',
+    '/esf3.jpg',
+    '/education.jpg',
+    '/espoir-enfant-bakaa.jpg',
 ];
 
 interface PygmySwiperProps {
@@ -68,7 +68,7 @@ export default function PygmySwiper({ dict }: PygmySwiperProps) {
                             />
                             <div className="absolute inset-0 bg-black/60"></div>
 
-                            <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 sm:px-12 z-10">
+                            <div className="absolute inset-0 flex flex-col items-center  justify-center text-center text-white px-4 sm:px-12 z-10">
                                 <h2 className="text-3xl sm:text-5xl font-bold mb-4 drop-shadow-md">{slide.title}</h2>
                                 <p className="text-lg sm:text-xl mb-8 max-w-2xl drop-shadow-md">{slide.description}</p>
                                 <Button
