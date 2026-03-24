@@ -97,7 +97,7 @@ export default function TestimonialsSection({ dict }: { dict: TestimonialsDict }
 
                             <div className="mt-4 pt-4 border-t border-slate-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
                                 <div className="flex justify-end">
-                                    <span className="text-orange-500 text-sm font-medium">Lire plus &rarr;</span>
+                                    <span className="text- text-sm font-medium">Lire plus &rarr;</span>
                                 </div>
                             </div>
                         </motion.div>
@@ -112,7 +112,7 @@ export default function TestimonialsSection({ dict }: { dict: TestimonialsDict }
                 >
                     <div
                         onClick={handleDonate}
-                        className="inline-flex items-center cursor-pointer justify-center bg-orange-600 hover:bg-orange-700 text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg shadow-orange-600/30 transition-all duration-300 hover:scale-105 transform"
+                        className="inline-flex items-center cursor-pointer justify-center bg-[#f5cc10] hover:bg-orange-700 text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg shadow-orange-600/30 transition-all duration-300 hover:scale-105 transform"
                     >
                         {dict.cta}
                     </div>

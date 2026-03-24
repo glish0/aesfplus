@@ -58,16 +58,16 @@ export function Footer({ dict }: FooterProps) {
                     <h4 className="text-white font-semibold mb-4">{dict.footer.contact}</h4>
                     <ul className="space-y-3 text-sm">
                         <li className="flex items-start gap-3">
-                            <MapPin className="w-5 h-5 text-orange-500 shrink-0" />
+                            <MapPin className="w-5 h-5 text-[#f5cc10] shrink-0" />
                             <span>Mokolo 3, Bertoua, Cameroun<br />BP 511</span>
                         </li>
                         <li className="flex items-center gap-3">
-                            <Phone className="w-5 h-5 text-orange-500 shrink-0" />
+                            <Phone className="w-5 h-5 text-[#f5cc10] shrink-0" />
                             <span>+237 657 547 585</span> {/* Dedicated placeholder */}
                             <span>+237 693 303 443</span> {/* Dedicated placeholder */}
                         </li>
                         <li className="flex items-center gap-3">
-                            <Mail className="w-5 h-5 text-orange-500 shrink-0" />
+                            <Mail className="w-5 h-5 text-[#f5cc10] shrink-0" />
                             <a href="mailto:contact.esfplus@gmail.com" className="hover:text-white">contact.esfplus@gmail.com</a>
                         </li>
                     </ul>

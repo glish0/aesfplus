@@ -5,7 +5,6 @@ export async function POST(req: NextRequest) {
         const body = await req.json();
         const { amount, phoneNumber, firstName } = body;
 
-        // ✅ Validation solide
         if (
             !amount ||
             typeof amount !== "number" ||

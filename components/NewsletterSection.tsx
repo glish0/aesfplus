@@ -39,7 +39,7 @@ export default function NewsletterSection({ dict }: { dict: NewsletterDict }) {
                     transition={{ duration: 0.6 }}
                     className="bg-slate-800/50 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-slate-700 shadow-2xl text-center"
                 >
-                    <div className="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-orange-500">
+                    <div className="w-16 h-16 bg-[#f5cc10]/20 rounded-full flex items-center justify-center mx-auto mb-6 text-orange-500">
                         <Send className="w-8 h-8" />
                     </div>
 
@@ -61,7 +61,7 @@ export default function NewsletterSection({ dict }: { dict: NewsletterDict }) {
                         />
                         <button
                             type="submit"
-                            className="px-8 py-4 rounded-full bg-orange-600 hover:bg-orange-500 text-white font-bold transition-all transform hover:scale-105 shadow-lg shadow-orange-600/20"
+                            className="px-8 py-4 rounded-full bg-[#f5cc10] hover:bg-orange-500 text-white font-bold transition-all transform hover:scale-105 shadow-lg shadow-orange-600/20"
                         >
                             {dict.button}
                         </button>

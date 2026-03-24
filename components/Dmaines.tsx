@@ -36,7 +36,7 @@ const domains = [
         icon: Users,
         title: "Autonomisation des jeunes",
         description: "Formations, clubs de jeunes filles, AGR et insertion socio-économique.",
-        image: "/education.jpg",
+        image: "/autonomisation.jpg",
 
     },
     {
