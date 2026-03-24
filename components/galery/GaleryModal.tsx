@@ -1,57 +1,67 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
+import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
+type Media = {
+    type: "image" | "video";
+    src: string;
+};
+
 export function GalleryModal({
-    images,
+    media,
     onClose,
 }: {
-    images: string[];
+    media: Media[];
     onClose: () => void;
 }) {
     const [current, setCurrent] = useState(0);
 
-    const next = () => setCurrent((prev) => (prev + 1) % images.length);
+    const next = () => setCurrent((prev) => (prev + 1) % media.length);
     const prev = () =>
-        setCurrent((prev) => (prev - 1 + images.length) % images.length);
+        setCurrent((prev) => (prev - 1 + media.length) % media.length);
 
     return (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
 
             {/* CLOSE */}
-            <button
-                onClick={onClose}
-                className="absolute top-6 right-6 text-white"
-            >
+            <button onClick={onClose} className="absolute top-4 right-4 text-white">
                 <X size={32} />
             </button>
 
-            {/* IMAGE */}
-            <div className="relative w-[90%] max-w-4xl h-[70vh]">
-                <Image
-                    src={images[current]}
-                    alt="gallery"
-                    fill
-                    className="object-contain"
-                />
+            {/* CONTENT */}
+            <div className="relative w-[95%] max-w-4xl h-[70vh]">
+
+                {media[current].type === "image" ? (
+                    <Image
+                        src={media[current].src}
+                        alt="gallery"
+                        fill
+                        className="object-contain"
+                    />
+                ) : (
+                    <video
+                        src={media[current].src}
+                        controls
+                        autoPlay
+                        className="w-full h-full object-contain"
+                    />
+                )}
             </div>
 
             {/* NAV */}
-            <button
-                onClick={prev}
-                className="absolute left-6 text-white"
-            >
-                <ChevronLeft size={40} />
-            </button>
+            {media.length > 1 && (
+                <>
+                    <button onClick={prev} className="absolute left-4 text-white">
+                        <ChevronLeft size={40} />
+                    </button>
 
-            <button
-                onClick={next}
-                className="absolute right-6 text-white"
-            >
-                <ChevronRight size={40} />
-            </button>
+                    <button onClick={next} className="absolute right-4 text-white">
+                        <ChevronRight size={40} />
+                    </button>
+                </>
+            )}
         </div>
     );
 }

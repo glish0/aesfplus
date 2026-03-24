@@ -111,7 +111,7 @@ export function MobileMenu({ labels }: MobileMenuProps) {
                 onClick={handleLinkClick}
                 className="flex items-center py-3 px-2 text-base font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
               >
-                Actions
+                Nos domaines
               </Link>
 
               {/* Accordion pour Act */}
