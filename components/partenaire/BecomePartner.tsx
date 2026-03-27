@@ -31,6 +31,8 @@ import Link from "next/link";
 import { Card, CardContent } from "../ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../ui/tabs";
 import PartnerSection from "./Partenaire";
+import { FaFacebookF } from "react-icons/fa";
+import { subscribeToNewsletter } from "@/lib/actions/newsletter";
 
 // Interface pour les témoignages
 interface Testimonial {
@@ -52,11 +54,31 @@ interface Partner {
 export default function BecomePartner({ dict }: { dict: AboutDict }) {
     const [activeLink, setActiveLink] = useState("");
     const [showCalendly, setShowCalendly] = useState(false);
+    const [email, setEmail] = useState("");
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        try {
+
+            await subscribeToNewsletter(email);
+            alert("Inscription réussie !");
+            setEmail("");
+        } catch (err) {
+            alert("Erreur lors de l'inscription");
+        }
+    };
     const partners: Partner[] = [
         {
-            id: 1,
-            name: "MTN",
-            logo: "/mtn2.jpg",
+            id: 24,
+            name: "MINPROFF",
+            logo: "/minprof.png",
+
+        },
+        {
+            id: 23,
+            name: "NDABUCHISEH",
+            logo: "/logo-ndabichiseh.jpg",
 
         },
         {
@@ -172,16 +194,16 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
         {
             quote:
                 "Grâce au soutien de nos partenaires, j'ai pu suivre une formation et créer ma propre activité. Aujourd'hui, je suis indépendante et je forme d'autres femmes.",
-            author: "Amina Diallo",
+            author: "Marie",
             title: "Bénéficiaire du programme 'Autonomisation'",
             type: "beneficiary",
         },
         {
             quote:
                 "Ce partenariat va bien au-delà du mécénat financier. L'engagement de leurs collaborateurs à nos côtés a apporté une énergie et des compétences nouvelles à nos équipes terrain.",
-            author: "Jean Moreau",
-            title: "Responsable des Partenariats",
-            company: "Fondation Avenir",
+            author: "Dr Emmanuel",
+            title: "Fondateur",
+            company: "NDABUCHISEH",
             type: "partner",
         },
     ];
@@ -241,25 +263,19 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
             color: "bg-pink-50 text-pink-700",
             icon: "👩‍⚖️",
         },
-        {
-            title: "Résilience climatique",
-            items: [
-                "Anticipation des risques de catastrophes",
-                "Adaptation au changement climatique",
-                "Sécurité alimentaire",
-            ],
-            color: "bg-green-50 text-green-700",
-            icon: "🌱",
-        },
+
         {
             title: "Action humanitaire",
             items: [
-                "Préparation aux catastrophes",
-                "Réponse d'urgence",
-                "Reconstruction long-terme",
+                "Eau, hygiéne et assainisement",
+                "Aide d'urgence",
+                "Protection des personnes vunérable",
+                "Distribution des dons",
+
+
             ],
             color: "bg-orange-50 text-orange-700",
-            icon: "🚀",
+            icon: "",
         },
     ];
 
@@ -463,7 +479,7 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
                         ))}
                     </motion.div>
 
-                    {/* Avantage fiscal */}
+                    {/* Avantage fiscal 
                     <motion.div
                         variants={fadeInUp}
                         initial="hidden"
@@ -489,7 +505,7 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
                                 En savoir plus <ArrowRight className="ml-2 w-4 h-4" />
                             </Button>
                         </div>
-                    </motion.div>
+                    </motion.div>*/}
                 </div>
             </section>
 
@@ -584,13 +600,13 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
 
                     {/* Tabs pour les expertises */}
                     <Tabs defaultValue="women" className="w-full">
-                        <TabsList className="grid w-full grid-cols-3 mb-8">
+                        <TabsList className="grid w-full grid-cols-2 mb-8">
                             <TabsTrigger value="women">Égalité femmes-hommes</TabsTrigger>
-                            <TabsTrigger value="climate">Résilience climatique</TabsTrigger>
+
                             <TabsTrigger value="humanitarian">Action humanitaire</TabsTrigger>
                         </TabsList>
                         {expertises.map((expertise, index) => (
-                            <TabsContent key={index} value={["women", "climate", "humanitarian"][index]}>
+                            <TabsContent key={index} value={["women", "humanitarian"][index]}>
                                 <Card>
                                     <CardContent className="p-6">
                                         <div className="flex items-start gap-4">
@@ -677,16 +693,7 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
                         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-gray-100 to-transparent pointer-events-none"></div>
                     </div>
 
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                        className="text-center mt-8"
-                    >
-                        <p className="text-sm text-gray-500">
-                            Survolez les logos pour mettre en pause le défilement
-                        </p>
-                    </motion.div>
+
                 </div>
 
                 <style jsx>{`
@@ -792,10 +799,10 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
                                     <div>
                                         <p className="text-sm text-blue-200 mb-1">Email</p>
                                         <a
-                                            href="mailto:partenariats@esfplus.org"
+                                            href="mailto:contact@esfplus.org"
                                             className="text-lg font-semibold hover:text-blue-200 transition-colors break-all"
                                         >
-                                            partenariats@esfplus.org
+                                            contact@esfplus.org
                                         </a>
                                     </div>
                                 </div>
@@ -856,57 +863,6 @@ export default function BecomePartner({ dict }: { dict: AboutDict }) {
                 </div>
             </section>
 
-            {/* Pied de page avec newsletter et réseaux sociaux (optionnel, inspiré de CARE) */}
-            <footer className="w-full py-12 bg-gray-900 text-white">
-                <div className="max-w-5xl mx-auto px-4">
-                    <div className="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <h3 className="text-xl font-bold mb-4">Restons en contact</h3>
-                            <p className="text-gray-400 mb-4">
-                                Abonnez-vous à la newsletter Partenaires pour suivre nos
-                                actualités et opportunités d'engagement.
-                            </p>
-                            <div className="flex gap-2">
-                                <input
-                                    type="email"
-                                    placeholder="Votre email"
-                                    className="flex-1 px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
-                                <Button className="bg-blue-600 hover:bg-blue-700">
-                                    S'abonner
-                                </Button>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 className="text-xl font-bold mb-4">Suivez notre actualité</h3>
-                            <div className="flex space-x-4">
-                                <a
-                                    href="https://linkedin.com/company/esfplus"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition-colors"
-                                >
-                                    <span className="sr-only">LinkedIn</span>
-                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                                    </svg>
-                                </a>
-                                <a
-                                    href="https://twitter.com/esfplus"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition-colors"
-                                >
-                                    <span className="sr-only">Twitter</span>
-                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
             {showCalendly && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
 

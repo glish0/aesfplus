@@ -19,7 +19,7 @@ export async function POST(req) {
             phone: body.phone,
             operator: body.operator, // MTN ou ORANGE
             reference: body.reference,
-            callback_url: "https://tonsite.com/api/freemopay/webhook"
+            callback_url: "https://esfplus.vercel.app/fr/api/freemopay/webhook"
         }),
     });
 

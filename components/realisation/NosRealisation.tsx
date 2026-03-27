@@ -465,7 +465,7 @@ export default function NosRealisations({ dict }: { dict: AboutDict }) {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        className="bg-emerald-600 rounded-3xl shadow-xl p-8 md:p-12 text-white"
+                        className="bg-[#f5cc10] rounded-3xl shadow-xl p-8 md:p-12 text-white"
                     >
                         <div className="grid md:grid-cols-3 gap-8">
                             <div className="text-center">

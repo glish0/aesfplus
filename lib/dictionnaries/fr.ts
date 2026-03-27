@@ -127,7 +127,7 @@ export const fr = {
     cta: "Faire un don maintenant",
     items: [
       { id: 1, name: "Beltrude Mpeck", role: "Bénévole", quote: "Une expérience humaine incroyable. Voir le sourire des enfants n'a pas de prix.", image: "/testimony/beltrude.png" },
-      { id: 2, name: "Jean P.", role: "Donateur", quote: "Je sais que mon argent va directement aux personnes qui en ont besoin. Transparence totale.", image: "/testimony/josephine.png" },
+      { id: 2, name: "Jean P.", role: "Donateur", quote: "Je sais que mon argent va directement aux personnes qui en ont besoin. Transparence totale.", image: "/donateur.jpg" },
       { id: 3, name: "Sophie L.", role: "Partenaire", quote: "ESF+ fait un travail formidable sur le terrain. Fier de collaborer avec eux.", image: "/testimony/beltrude.png" },
       { id: 4, name: "Marie M.", role: "Benéficiaire", quote: "Les campagnes de santé organisées sauvent littéralement des vies.", image: "/femme-chef-pygmee-baka.jpg" },
 

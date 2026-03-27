@@ -15,6 +15,7 @@ import {
     Baby,
     Users,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 
 
@@ -23,12 +24,14 @@ const domains = [
         icon: HeartPulse,
         title: "Santé communautaire",
         description: "Sensibilisation au paludisme, tuberculose, santé sexuelle et reproductive.",
-        image: "/education.jpg",
+        link: '#domaines',
+        image: "/paludisme/campagne_communautaire.jpg",
     },
     {
         icon: BookOpen,
         title: "Éducation",
         description: "Centres préscolaires, distribution de kits scolaires, sensibilisation des parents.",
+        link: '#domaines',
         image: "/education.jpg",
 
     },
@@ -36,27 +39,39 @@ const domains = [
         icon: Users,
         title: "Autonomisation des jeunes",
         description: "Formations, clubs de jeunes filles, AGR et insertion socio-économique.",
-        image: "/autonomisation.jpg",
+        link: '#domaines',
+        image: "/fille_bakaa.jpeg",
 
     },
     {
         icon: Shield,
         title: "Protection des populations vulnérables",
         description: "Interventions auprès des communautés Baka et zones isolées.",
-        image: "/education.jpg",
+        link: '#domaines',
+        image: "/personne_vulnerable.jpg",
 
     },
     {
         icon: Baby,
         title: "Droits des enfants",
         description: "Journée de l’enfant africain, sensibilisation aux droits et à l’éducation.",
-        image: "/education.jpg",
+        link: '#domaines',
+        image: "/droit_enfant.jpg",
 
     },
 
 ];
 
+
+
+
+
 export default function DomainsSection() {
+
+    const router = useRouter();
+    const nextActivit = (link: string) => {
+        router.push(link);
+    };
     return (
         <section className="-mt-3 relative w-full z-20 py-12 px-6 bg-white rounded-t-3xl shadow-xl">
             <div className="max-w-7xl mx-auto text-center mb-8">
@@ -80,6 +95,7 @@ export default function DomainsSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true }}
+                            onClick={() => nextActivit(`fr/actions/${domain.link}`)}
                         >
                             <Card className="group overflow-hidden border-none rounded-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
 

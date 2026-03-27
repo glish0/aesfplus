@@ -44,17 +44,22 @@ const cards: Card[] = [
     {
         title: "Campagne de santé",
         subtitle: "3 villages couverts",
-        media: [{ type: "image", src: "/paludisme/campagne-de-sensibilisation-contre-le-palusidsme2.jpg" }],
+        media: [{ type: "image", src: "/esf3.jpg" }, { type: "image", src: "/paludisme/campagne-de-sensibilisation-contre-le-palusidsme2.jpg" }, { type: "image", src: "/octobre-rose.jpg" }],
     },
     {
         title: "Mobilisation communautaire",
         subtitle: "Actions de sensibilisation",
-        media: [{ type: "image", src: "/esf6.jpg" }],
+        media: [{ type: "image", src: "/ecole.png" }],
     },
+    /*  {
+         title: "Protection des enfants",
+         subtitle: "Programme de soutien",
+         media: [{ type: "image", src: "/enfant.jpg" }],
+     }, */
     {
-        title: "Protection des enfants",
-        subtitle: "Programme de soutien",
-        media: [{ type: "image", src: "/enfant.jpg" }],
+        title: "Programme F2D",
+        subtitle: "Formations, clubs de jeunes filles, AGR et insertion socio-économique.",
+        media: [{ type: "image", src: "/f2d.jpg" }, { type: "image", src: "/f2d2.jpg" }, { type: "image", src: "/femme-de-demain.jpg" }, { type: "image", src: "/femme-de-demain2.jpg" }],
     },
 
 

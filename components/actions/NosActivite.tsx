@@ -33,8 +33,8 @@ export default function ActivitiesPage() {
     const handleVolunteer = () => {
         const path =
             locale === "fr"
-                ? "/fr/devenir-benevole"
-                : "/en/devenir-benevole";
+                ? "/fr/devenir-un-benevol"
+                : "/en/devenir-un-benevol";
         router.push(path);
     };
 
@@ -103,7 +103,7 @@ export default function ActivitiesPage() {
         },
         {
             date: "Octobre",
-            title: "Octobre Rose – Lutte contre le cancer du sein",
+            title: "Octobre Rose – Lutte contre les cancers du sein",
             desc: "Nous menons des campagnes de sensibilisation, de dépistage et d’accompagnement des femmes.",
             why: "Le manque d’information et de dépistage précoce entraîne des décès évitables.",
             impact: "Des femmes sensibilisées, accompagnées et orientées vers des soins adaptés.",
@@ -117,8 +117,8 @@ export default function ActivitiesPage() {
         },
         {
             date: "Toute l’année",
-            title: "Programme F2D (Formation & Développement Durable)",
-            desc: "Formation des jeunes Baka du cluster de Mayos à des activités génératrices de revenus comme la fabrication de savon liquide et mentholé.",
+            title: "Programme F2D (Femme de Demain)",
+            desc: "Formation des clubs de jeunes fille vulnérable en particulier les Bakaa à des ateliers de formation comme des AGR sur la fabrication des produits ménagers",
             why: "L’autonomisation économique est essentielle pour sortir durablement de la pauvreté.",
             impact: "Des jeunes formés, capables de générer leurs propres revenus et soutenir leurs familles.",
         },
@@ -177,14 +177,14 @@ export default function ActivitiesPage() {
                                     <CardContent className="p-6">
                                         <item.icon className="w-10 h-10 text-yellow-500 mb-4" />
                                         <h3 className="font-bold mb-2">{item.title}</h3>
-                                        <p className="text-gray-600 text-sm">{item.desc}</p>
+                                        <p className="text-black text-sm">{item.desc}</p>
                                         {open && (
-                                            <p className="text-gray-500 text-sm mt-2">{item.details}</p>
+                                            <p className="text-black text-sm mt-2">{item.details}</p>
                                         )}
 
                                         <button
                                             onClick={() => setOpen(!open)}
-                                            className="text-[#f5cc10] text-sm mt-2"
+                                            className="text-[#f5cc10] cursor-pointer text-sm mt-2"
                                         >
                                             {open ? "Réduire" : "En savoir plus"}
                                         </button>
@@ -230,7 +230,7 @@ export default function ActivitiesPage() {
                 <div className="max-w-5xl mx-auto px-4">
 
                     <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6">
-                        Nos campagnes annuelles
+                        Nos evénements annuelles
                     </h2>
 
                     <p className="text-center text-gray-600 max-w-2xl mx-auto mb-12">
