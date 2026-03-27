@@ -14,6 +14,10 @@ export const fr = {
   pygmy_swiper: {
     slides: [
       {
+        title: "Cultiver l'espoir",
+        description: "Soutenir l'agriculture durable pour garantir la sécurité alimentaire et l'indépendance des communautés."
+      },
+      {
         title: "Protéger les peuples autochtones",
         description: "Aidez-nous à offrir un avenir digne aux familles pygmées, souvent oubliées. Accès aux soins, éducation, protection."
       },
@@ -29,10 +33,7 @@ export const fr = {
         title: "L'éducation pour tous",
         description: "Offrons aux enfants pygmées la chance d'aller à l'école. Un crayon, un cahier, un avenir."
       },
-      {
-        title: "Cultiver l'espoir",
-        description: "Soutenir l'agriculture durable pour garantir la sécurité alimentaire et l'indépendance des communautés."
-      }
+
     ],
     donate_button: "Faire un don"
   },

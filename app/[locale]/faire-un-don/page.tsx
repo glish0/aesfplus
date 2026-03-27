@@ -1,24 +1,11 @@
 "use client";
 
-import { Pay } from "@nkwa-pay/sdk";
 import { useEffect, useState, useTransition } from "react";
-// adjust path if needed
+
 
 export default function DonationPage() {
-    // =============================
-    // STATE
-    // =============================
-    const [selectedAmount, setSelectedAmount] = useState(110);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [formData, setFormData] = useState({
-        email: "",
-        firstName: "",
-        lastName: "",
-        phoneNumber: "",
-    });
-    const [isPending, startTransition] = useTransition();
-    const [error, setError] = useState<string | null>(null);
-    const [success, setSuccess] = useState(false);
+
 
     const donors = [
         { name: "Simone", amount: 120000 },
@@ -37,198 +24,141 @@ export default function DonationPage() {
         return () => clearInterval(interval);
     }, []);
 
-    const handleSubmit = () => {
-        setError(null);
-        setSuccess(false);
 
-        if (!formData.email || !formData.firstName || !formData.phoneNumber) {
-            setError("Veuillez remplir tous les champs obligatoires");
+    const [selectedAmount, setSelectedAmount] = useState(1000);
+    const [operator, setOperator] = useState("ORANE");
+
+    const [formData, setFormData] = useState({
+        email: "",
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+    });
+
+    const [isPending, startTransition] = useTransition();
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    const handleSubmit = () => {
+        setError('');
+        setSuccess('');
+
+        if (!formData.phoneNumber) {
+            setError("Numéro requis");
             return;
         }
 
+        const reference = "DON_" + Date.now();
+
         startTransition(async () => {
             try {
-                const res = await fetch("/api/pay", {
+                const res = await fetch("/api/freemopay/payment", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                         amount: selectedAmount,
-                        phoneNumber: formData.phoneNumber,
-                        firstName: formData.firstName,
-                        lastName: formData.lastName,
-                        email: formData.email,
+                        phone: formData.phoneNumber,
+                        operator,
+                        reference,
                     }),
                 });
 
                 const data = await res.json();
 
                 if (!res.ok) {
-                    throw new Error(data.error);
+                    throw new Error(data.message || "Erreur paiement");
                 }
 
-                if (data.status === "success") {
-                    setSuccess(true);
-                } else {
-                    setError("Paiement en attente...");
-                }
+                setSuccess("Validez le paiement sur votre téléphone...");
+
+                // 🔁 polling status
+                const interval = setInterval(async () => {
+                    const statusRes = await fetch(
+                        `/api/freemopay/status/${reference}`
+                    );
+                    const statusData = await statusRes.json();
+
+                    if (statusData.status === "SUCCESS") {
+                        clearInterval(interval);
+                        setSuccess("Paiement réussi 🎉");
+                    }
+
+                    if (statusData.status === "FAILED") {
+                        clearInterval(interval);
+                        setError("Paiement échoué ❌");
+                    }
+                }, 5000);
 
             } catch (err: any) {
-                setError(err.message || "Erreur paiement");
+                setError(err.message);
             }
         });
     };
 
     return (
-        <>
-            <div className="w-full bg-purple-900 text-white text-center py-2 z-50">
-                Merci à{" "}
-                <span className="font-bold lowercase">{donors[currentIndex].name}</span>{" "}
-                pour son don de{" "}
-                <span className="font-bold">{donors[currentIndex].amount} FCFA</span>
-            </div>
-            <div className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-12">
-                {/* BACKGROUND */}
-                <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: "url('/pygmee1.jpg')" }}
+        <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-100">
+            <div className="bg-white p-6 rounded shadow w-full max-w-md space-y-4">
+                <h1 className="text-xl font-bold text-center">Faire un don</h1>
+
+                {/* Montants */}
+                <div className="grid grid-cols-2 gap-2">
+                    {[1000, 5000, 10000, 25000].map((amount) => (
+                        <button
+                            key={amount}
+                            onClick={() => setSelectedAmount(amount)}
+                            className={`p-2 border rounded ${selectedAmount === amount ? "bg-orange-500 text-white" : ""
+                                }`}
+                        >
+                            {amount} FCFA
+                        </button>
+                    ))}
+                </div>
+
+                {/* Inputs */}
+                <input
+                    placeholder="Téléphone"
+                    className="w-full border p-2 rounded"
+                    onChange={(e) =>
+                        setFormData({ ...formData, phoneNumber: e.target.value })
+                    }
                 />
-                <div className="absolute inset-0 bg-black/60"></div>
 
-                <div className="relative z-10 max-w-3xl text-center text-white mb-8">
-                    <h1 className="text-3xl md:text-4xl font-bold mb-4">
-                        Faites une différence aujourd’hui
-                    </h1>
-                    <p className="text-lg md:text-xl leading-relaxed font-medium">
-                        Chaque don, quel que soit son montant, a un impact réel et concret.
-                        Grâce à votre soutien, nous pouvons financer des actions essentielles
-                        comme l’accès à l’éducation, la santé, l’aide alimentaire ou encore
-                        le développement de projets communautaires durables.
-                        Il n’y a pas de “petit don” : chaque contribution compte et nous rapproche
-                        un peu plus de notre objectif. Ensemble, nous pouvons changer des vies. 💛
-                    </p>
+                {/* Opérateur */}
+                <div className="flex gap-2">
+                    <button
+                        onClick={() => setOperator("MTN")}
+                        className={`flex-1 p-2 border rounded ${operator === "MTN" ? "bg-orange-500 text-white" : ""
+                            }`}
+                    >
+                        MTN
+                    </button>
+
+                    <button
+                        onClick={() => setOperator("ORANGE")}
+                        className={`flex-1 p-2 border rounded ${operator === "ORANGE" ? "bg-orange-500 text-white" : ""
+                            }`}
+                    >
+                        ORANGE
+                    </button>
                 </div>
 
-                {/* CONTENU */}
-                <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 mb-10 gap-6 w-full max-w-6xl">
-                    {/* COLONNE 1 : DON */}
-                    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <div className="bg-purple-900 text-white text-center py-3 font-semibold">
-                            Mon don
-                        </div>
-                        <div className="p-4 space-y-4">
-                            <div className="grid grid-cols-2 gap-3">
-                                {[3000, 10000, 25000, 100000].map((amount) => (
-                                    <button
-                                        key={amount}
-                                        onClick={() => setSelectedAmount(amount)}
-                                        className={`py-3 rounded font-bold transition ${selectedAmount === amount
-                                            ? "bg-orange-500 text-white"
-                                            : "border"
-                                            }`}
-                                    >
-                                        {amount} FCFA
-                                    </button>
-                                ))}
-                            </div>
-                            <button className="w-full border py-3 rounded font-semibold">
-                                Montant libre
-                            </button>
-                            <p className="text-sm text-gray-600 text-center">
-                                Vous offrez par exemple un kit d’hygiène à 3 familles
-                            </p>
-                        </div>
-                    </div>
+                {/* Bouton */}
+                <button
+                    onClick={handleSubmit}
+                    disabled={isPending}
+                    className="w-full bg-orange-500 text-white p-3 rounded"
+                >
+                    {isPending
+                        ? "Traitement..."
+                        : `Payer ${selectedAmount} FCFA`}
+                </button>
 
-                    {/* COLONNE 2 : FORMULAIRE */}
-                    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <div className="bg-purple-900 text-white text-center py-3 font-semibold">
-                            Mes coordonnées
-                        </div>
-                        <div className="p-4 space-y-4">
-                            <input
-                                type="email"
-                                placeholder="Email *"
-                                value={formData.email}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, email: e.target.value })
-                                }
-                                className="w-full p-3 border rounded"
-                                required
-                            />
-                            <input
-                                placeholder="Prénom *"
-                                value={formData.firstName}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, firstName: e.target.value })
-                                }
-                                className="w-full p-3 border rounded"
-                                required
-                            />
-                            <input
-                                placeholder="Nom *"
-                                value={formData.lastName}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, lastName: e.target.value })
-                                }
-                                className="w-full p-3 border rounded"
-                                required
-                            />
-                            <input
-                                placeholder="Adresse"
-                                value={formData.phoneNumber}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, phoneNumber: e.target.value })
-                                }
-                                className="w-full p-3 border rounded"
-                            />
-                        </div>
-                    </div>
-
-                    {/* COLONNE 3 : PAIEMENT */}
-                    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <div className="bg-purple-900 text-white text-center py-3 font-semibold">
-                            Mon règlement
-                        </div>
-                        <div className="p-4 space-y-4">
-                            <div className="grid grid-cols-2 gap-3">
-                                <button className="border-2 border-orange-500 text-orange-500 p-3 rounded">
-                                    Mobile Money
-                                </button>
-                                <button className="border-2 border-orange-500 text-orange-500 p-3 rounded">
-                                    Orange Money
-                                </button>
-                            </div>
-
-                            <button
-                                onClick={handleSubmit}
-                                disabled={isPending}
-                                className={`w-full py-4 rounded font-bold text-lg transition ${isPending
-                                    ? "bg-gray-400 cursor-not-allowed"
-                                    : "bg-orange-500 hover:bg-orange-400 text-white"
-                                    }`}
-                            >
-                                {isPending
-                                    ? "Traitement..."
-                                    : `JE VALIDE MON DON DE ${selectedAmount} FCFA`}
-                            </button>
-
-                            {error && (
-                                <p className="text-red-500 text-sm text-center">{error}</p>
-                            )}
-                            {success && (
-                                <p className="text-green-600 text-sm text-center">
-                                    Merci ! Votre don a bien été enregistré.
-                                </p>
-                            )}
-                            <p className="text-xs text-gray-500 text-center">
-                                Paiement sécurisé
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                {/* Messages */}
+                {error && <p className="text-red-500">{error}</p>}
+                {success && <p className="text-green-600">{success}</p>}
             </div>
-        </>
+        </div>
     );
 }

@@ -80,7 +80,7 @@ const PartnerSection: React.FC = () => {
     }, []);
 
     return (
-        <section className="relative w-full py-20 px-4 lg:px-2xl overflow-hidden bg-white">
+        <section className="relative w-full py-12 px-4 lg:px-xl overflow-hidden bg-white">
             <div className="w-full mx-auto px-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -89,19 +89,19 @@ const PartnerSection: React.FC = () => {
                     viewport={{ once: true }}
                     className="text-center mb-12"
                 >
-                    <h2 className="text-4xl font-bold text-gray-800 mb-4">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-4">
                         Nos Partenaires
                     </h2>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                         Découvrez les entreprises qui nous font confiance et avec qui nous collaborons
                     </p>
-                    <div className="w-24 h-1 bg-indigo-600 mx-auto mt-4 rounded-full"></div>
+                    <div className="w-18 h-1 bg-indigo-600 mx-auto mt-4 rounded-full"></div>
                 </motion.div>
 
                 <div className="relative overflow-hidden">
                     <div
                         ref={scrollRef}
-                        className="flex overflow-x-auto scrollbar-hide gap-8 py-8 px-4"
+                        className="flex overflow-x-auto scrollbar-hide gap-8 py-4 px-4"
                         style={{
                             scrollBehavior: 'smooth',
                             WebkitOverflowScrolling: 'touch',
@@ -138,20 +138,11 @@ const PartnerSection: React.FC = () => {
                     </div>
 
                     {/* Effets de gradient sur les côtés */}
-                    <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none"></div>
-                    <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-gray-100 to-transparent pointer-events-none"></div>
+                    <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-gray-50 to-transparent pointer-events-none"></div>
+                    <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-gray-100 to-transparent pointer-events-none"></div>
                 </div>
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    className="text-center mt-8"
-                >
-                    <p className="text-sm text-gray-500">
-                        Survolez les logos pour mettre en pause le défilement
-                    </p>
-                </motion.div>
+
             </div>
 
             <style jsx>{`

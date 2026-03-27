@@ -37,9 +37,8 @@ export default function TestimonialsSection({ dict }: { dict: TestimonialsDict }
 
     return (
         <section className="py-24 px-4 bg-white px-4 lg:px-2xl overflow-hidden relative">
-            {/* Subtle Background Elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-30">
-                <div className="absolute -top-24 -left-24 w-96 h-96 bg-orange-100 rounded-full blur-[80px]" />
+                <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#f5cc10] rounded-full blur-[80px]" />
                 <div className="absolute top-1/2 right-0 w-64 h-64 bg-blue-50 rounded-full blur-[60px]" />
             </div>
 
@@ -74,7 +73,7 @@ export default function TestimonialsSection({ dict }: { dict: TestimonialsDict }
                             className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm transition-all duration-300 flex flex-col h-full group"
                         >
                             <div className="flex items-center gap-4 mb-4">
-                                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-slate-100 ring-2 ring-orange-100 group-hover:ring-orange-400 transition-all">
+                                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-slate-100 ring-2 ring-[#f5cc10] group-hover:ring-[#f5cc10] transition-all">
                                     <Image
                                         src={item.image}
                                         alt={item.name}
@@ -112,7 +111,7 @@ export default function TestimonialsSection({ dict }: { dict: TestimonialsDict }
                 >
                     <div
                         onClick={handleDonate}
-                        className="inline-flex items-center cursor-pointer justify-center bg-[#f5cc10] hover:bg-orange-700 text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg shadow-orange-600/30 transition-all duration-300 hover:scale-105 transform"
+                        className="inline-flex items-center cursor-pointer justify-center bg-[#f5cc10] hover:bg-[#f5cc10] text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg shadow-orange-600/30 transition-all duration-300 hover:scale-105 transform"
                     >
                         {dict.cta}
                     </div>

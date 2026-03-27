@@ -86,25 +86,26 @@ const StatsSection = ({ dict }: { dict: StatsDict }) => {
                             animate={isInView ? { opacity: 1, scale: 1 } : {}}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             whileHover={{ y: -5, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)" }}
-                            className="bg-white/70 backdrop-blur-md rounded-3xl p-6 shadow-lg border border-white/50 flex flex-col items-center text-center transition-all duration-300 hover:border-orange-200/50 hover:bg-white/90"
+                            className="bg-white/70 backdrop-blur-md rounded-xl p-2 shadow-lg border border-white/50 flex flex-col items-center  transition-all duration-300 hover:border-orange-200/50 hover:bg-white/90"
                         >
-                            <div className="w-16 h-16 mb-4 rounded-2xl bg-orange-100/80 flex items-center justify-center text-3xl shadow-inner">
-                                {getIcon(index)}
-                            </div>
-                            <div className="text-4xl md:text-5xl font-black text-slate-800 mb-2 tracking-tighter">
-                                {isInView ? (
-                                    <CountUp
-                                        end={stat.value}
-                                        duration={3}
-                                        suffix={stat.suffix}
-                                        separator=" "
-                                        className="bg-clip-text text-transparent bg-[#f5cc10]"
-                                    />
-                                ) : (
-                                    <span className="text-slate-200">0</span>
-                                )}
-                            </div>
-                            <p className="text-slate-600 font-medium text-sm md:text-base leading-snug">{stat.label}</p>
+                            <div className="flex w-full items-center justify-between">
+                                <div className="w-6 h-6 mb-2 rounded-xl bg-orange-100/80 flex items-center justify-center text-2xl shadow-inner">
+                                    {getIcon(index)}
+                                </div>
+                                <div className="text-xl md:text-2xl font-black text-slate-800 mb-1 tracking-tighter">
+                                    {isInView ? (
+                                        <CountUp
+                                            end={stat.value}
+                                            duration={3}
+                                            suffix={stat.suffix}
+                                            separator=" "
+                                            className="bg-clip-text text-transparent bg-[#f5cc10]"
+                                        />
+                                    ) : (
+                                        <span className="text-slate-200">0</span>
+                                    )}
+                                </div></div>
+                            <p className="text-slate-600 font-medium text-xs md:text-base leading-snug">{stat.label}</p>
                         </motion.div>
                     ))}
                 </div>
@@ -114,7 +115,7 @@ const StatsSection = ({ dict }: { dict: StatsDict }) => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ delay: 0.8, duration: 0.5 }}
-                    className="text-center mt-16"
+                    className="text-center mt-10"
                 >
                     <Link
                         href="/faire-un-don"

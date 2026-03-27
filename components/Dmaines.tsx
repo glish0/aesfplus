@@ -69,7 +69,7 @@ export default function DomainsSection() {
                 </p>
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {domains.map((domain, index) => {
                     const Icon = domain.icon;
 
@@ -81,10 +81,10 @@ export default function DomainsSection() {
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true }}
                         >
-                            <Card className="group overflow-hidden border-none rounded-2xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                            <Card className="group overflow-hidden border-none rounded-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
 
                                 {/* IMAGE */}
-                                <div className="relative h-48 w-full overflow-hidden">
+                                <div className="relative h-32 sm:h-40 lg:h-48 w-full overflow-hidden">
                                     <Image
                                         src={domain.image}
                                         alt={domain.title}
@@ -97,18 +97,18 @@ export default function DomainsSection() {
                                 </div>
 
                                 {/* CONTENT */}
-                                <CardContent className="p-2 flex flex-col items-center  relative">
+                                <CardContent className="p-3 sm:p-4 flex flex-col items-center relative">
 
                                     {/* Icon floating */}
-                                    <div className="-mt-12 mb-4 bg-white p-4 rounded-full shadow-lg group-hover:scale-110 transition">
-                                        <Icon className="w-8 h-8 text-[#f5cc10]" />
+                                    <div className="-mt-10 sm:-mt-12 mb-3 bg-white p-3 sm:p-4 rounded-full shadow-lg group-hover:scale-110 transition">
+                                        <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-[#f5cc10]" />
                                     </div>
 
-                                    <h3 className="text-xl  font-semibold mb-2">
+                                    <h3 className="text-base sm:text-lg font-semibold mb-1 text-center">
                                         {domain.title}
                                     </h3>
 
-                                    <p className="text-gray-600 text-sm">
+                                    <p className="text-gray-600 text-xs sm:text-sm text-center">
                                         {domain.description}
                                     </p>
                                 </CardContent>

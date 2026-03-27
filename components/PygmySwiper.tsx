@@ -11,11 +11,12 @@ import 'swiper/css/navigation';
 import { useRouter, useParams } from 'next/navigation';
 
 const images = [
+    '/espoir-enfant-bakaa.jpg',
     '/pygmee1.jpg',
     '/pygme3.jpg',
     '/esf3.jpg',
     '/education.jpg',
-    '/espoir-enfant-bakaa.jpg',
+
 ];
 
 interface PygmySwiperProps {
@@ -50,7 +51,7 @@ export default function PygmySwiper({ dict }: PygmySwiperProps) {
             <Swiper
                 spaceBetween={0}
                 centeredSlides={true}
-                autoplay={{ delay: 5000, disableOnInteraction: false }}
+                autoplay={{ delay: 6000, disableOnInteraction: false }}
                 pagination={{ clickable: true }}
                 navigation={true}
                 modules={[Autoplay, Pagination, Navigation]}

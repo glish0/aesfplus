@@ -4,10 +4,11 @@ import { LanguageSwitcher } from "@/components/navbar/switch-language";
 import { NavDropdown } from "@/components/navbar/Dropdown";
 import { MobileMenu } from "@/components/navbar/MobileMnu";
 import { getDictionary } from "@/lib/dictionnaries/dictionnaries";
-import { NavActions } from "@/components/NavActions";
 import Link from "next/link";
-import { Facebook } from "lucide-react";
+
 import { FaFacebookF } from "react-icons/fa";
+import { NavActions } from "../NavActions";
+
 
 export async function Navbar({ locale }: { locale: Locale }) {
   const dict = await getDictionary(locale);
@@ -98,6 +99,25 @@ export async function Navbar({ locale }: { locale: Locale }) {
           <Link href={'/fr/about'} className="font-medium text-gray-700 hover:text-black transition">{dict.nav.about}</Link>
         </nav>
 
+
+        <div className="flex lg:hidden  items-center gap-4 ">
+
+          {/* Socials */}
+          <div className="flex  gap-1">
+            <Link
+              href="https://web.facebook.com/profile.php?id=61558649237326"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+            >
+              <FaFacebookF className="h-4 w-4 text-blue-600 hover:opacity-80 transition" />
+            </Link>
+          </div>
+
+          {/* CTA Buttons */}
+
+
+        </div>
         <div className="hidden lg:flex lg:flex-col items-center gap-4 ">
           <div className="flex justify-end gap-4">
             <Link
@@ -108,11 +128,13 @@ export async function Navbar({ locale }: { locale: Locale }) {
             >
               <FaFacebookF className="h-4 w-4 text-blue-600 hover:opacity-80 transition" />
             </Link>
-            {/* <LanguageSwitcher currentLocale={locale} /> */}
+            {/*<LanguageSwitcher currentLocale={locale} />
+            <LanguageSwitcher currentLocale={locale} /> */}
           </div>
           <div className=" border-t pt-2">
             <NavActions labels={dict.nav} />
           </div>
+
         </div>
 
         <MobileMenu labels={dict.nav} />

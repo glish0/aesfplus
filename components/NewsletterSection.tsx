@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Send } from "lucide-react";
+import { subscribeToNewsletter } from "@/lib/actions/newsletter";
 
 interface NewsletterDict {
     title: string;
@@ -17,12 +18,17 @@ export default function NewsletterSection({ dict }: { dict: NewsletterDict }) {
     const isInView = useInView(ref, { once: true, margin: "-100px" });
     const [email, setEmail] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle newsletter subscription logic here
-        console.log("Subscribing email:", email);
-        setEmail("");
-        alert("Merci ! (Simulation)");
+
+        try {
+
+            await subscribeToNewsletter(email);
+            alert("Inscription réussie !");
+            setEmail("");
+        } catch (err) {
+            alert("Erreur lors de l'inscription");
+        }
     };
 
     return (
@@ -61,7 +67,7 @@ export default function NewsletterSection({ dict }: { dict: NewsletterDict }) {
                         />
                         <button
                             type="submit"
-                            className="px-8 py-4 rounded-full bg-[#f5cc10] hover:bg-orange-500 text-white font-bold transition-all transform hover:scale-105 shadow-lg shadow-orange-600/20"
+                            className="px-8 py-4 rounded-full bg-[#f5cc10] hover:bg-[#f5cc10]/30 text-white font-bold transition-all transform hover:scale-105 shadow-lg shadow-orange-600/20"
                         >
                             {dict.button}
                         </button>
