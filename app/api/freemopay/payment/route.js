@@ -19,24 +19,25 @@ export async function POST(req) {
 
         const token = tokenData.access_token;
 
-        // 2. init paiement
-        const res = await fetch(`${process.env.FREEMO_BASE_URL}/api/v2/payment`, {
+        // 2. Initiate payment using the correct payload
+        const paymentRes = await fetch(`${process.env.FREEMO_BASE_URL}/api/v2/payment`, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                amount: body.amount,
-                phone: body.phone,
-                operator: body.operator,
-                reference: body.reference,
-                callback_url: "https://esfplus.vercel.app/fr/api/freemopay/webhook"
+                "phone": "2376xxxxxxxx",
+                "amount": "100",
+                "reference": "order-12345",
+                "description": "Test payment",
+                "callback_url": "https://esfplus.vercel.app/fr/api/freemopay/webhook"
             }),
         });
 
+
         // 🔥 IMPORTANT : lire en text d'abord
-        const text = await res.text();
+        const text = await paymentRes.text();
 
         let data;
         try {
