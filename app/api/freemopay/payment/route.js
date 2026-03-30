@@ -15,7 +15,7 @@ export async function POST(req) {
             );
         }
 
-        const token = tokenData.token;
+        const token = tokenData.access_token;
 
         // 2. init paiement
         const res = await fetch(`${process.env.FREEMO_BASE_URL}/api/v2/payment`, {
