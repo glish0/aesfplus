@@ -50,7 +50,15 @@ export default function DonationPage() {
 
         const reference = "DON_" + Date.now();
 
+        console.log({
+            amount: selectedAmount,
+            phone: formData.phoneNumber,
+            operator,
+            reference,
+        })
+
         startTransition(async () => {
+
             try {
                 const res = await fetch("/api/freemopay/payment", {
                     method: "POST",
