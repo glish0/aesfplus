@@ -2,11 +2,8 @@
 
 import { useEffect, useState, useTransition } from "react";
 
-
 export default function DonationPage() {
     const [currentIndex, setCurrentIndex] = useState(0);
-
-
     const donors = [
         { name: "Simone", amount: 120000 },
         { name: "Paul", amount: 5000 },
@@ -15,19 +12,14 @@ export default function DonationPage() {
         { name: "Fatou", amount: 10000 },
     ];
 
-
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % donors.length);
         }, 2000);
-
         return () => clearInterval(interval);
     }, []);
 
-
     const [selectedAmount, setSelectedAmount] = useState(1000);
-    const [operator, setOperator] = useState("ORANE");
-
     const [formData, setFormData] = useState({
         email: "",
         firstName: "",
@@ -36,74 +28,84 @@ export default function DonationPage() {
     });
 
     const [isPending, startTransition] = useTransition();
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
+    // Polling state
+    const [shouldPoll, setShouldPoll] = useState(false);
+    const [reference, setReference] = useState("");
+
+    // Polling effect
+    useEffect(() => {
+        if (!shouldPoll || !reference) return;
+
+        let interval: NodeJS.Timeout;
+        let attempts = 0;
+        const maxAttempts = 30; // 30 * 5s = 2.5 minutes
+
+        const poll = async () => {
+            try {
+                const res = await fetch(`/api/freemopay/status/${reference}`);
+                const statusData = await res.json();
+
+                if (statusData.status === "SUCCESS") {
+                    clearInterval(interval);
+                    setSuccess("Paiement réussi 🎉");
+                    setShouldPoll(false);
+                } else if (statusData.status === "FAILED") {
+                    clearInterval(interval);
+                    setError("Paiement échoué ❌");
+                    setShouldPoll(false);
+                } else {
+                    attempts++;
+                    if (attempts >= maxAttempts) {
+                        clearInterval(interval);
+                        setError("Délai dépassé, veuillez vérifier votre transaction.");
+                        setShouldPoll(false);
+                    }
+                }
+            } catch (err) {
+                console.error("Polling error", err);
+            }
+        };
+
+        interval = setInterval(poll, 5000);
+        return () => clearInterval(interval);
+    }, [shouldPoll, reference]);
 
     const handleSubmit = () => {
-        setError('');
-        setSuccess('');
+        setError("");
+        setSuccess("");
 
         if (!formData.phoneNumber) {
             setError("Numéro requis");
             return;
         }
 
-        const reference = "DON_" + Date.now();
-
-        console.log({
-            amount: selectedAmount,
-            phone: formData.phoneNumber,
-            operator,
-            reference,
-        })
+        const newReference = "DON_" + Date.now();
 
         startTransition(async () => {
-
             try {
                 const res = await fetch("/api/freemopay/payment", {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         amount: selectedAmount,
                         phone: formData.phoneNumber,
-                        operator,
-                        reference,
+                        reference: newReference,
                     }),
                 });
-                console.log('hand res', res)
-
 
                 const data = await res.json();
-                console.log('hand data', data)
+
                 if (!res.ok) {
                     throw new Error(data.message || "Erreur paiement");
                 }
 
                 setSuccess("Validez le paiement sur votre téléphone...");
-
-                // 🔁 polling status
-                const interval = setInterval(async () => {
-                    const statusRes = await fetch(
-                        `/api/freemopay/status/${reference}`
-                    );
-                    const statusData = await statusRes.json();
-
-                    console.log('hand statusData', statusData)
-                    if (statusData.status === "SUCCESS") {
-                        clearInterval(interval);
-                        setSuccess("Paiement réussi 🎉");
-                    }
-
-                    if (statusData.status === "FAILED") {
-                        clearInterval(interval);
-                        setError("Paiement échoué ❌");
-                    }
-                }, 5000);
-
+                setReference(newReference);
+                setShouldPoll(true);
             } catch (err: any) {
-                console.log('err res', err)
                 setError(err.message);
             }
         });
@@ -136,25 +138,6 @@ export default function DonationPage() {
                         setFormData({ ...formData, phoneNumber: e.target.value })
                     }
                 />
-
-                {/* Opérateur */}
-                <div className="flex gap-2">
-                    <button
-                        onClick={() => setOperator("MTN")}
-                        className={`flex-1 p-2 border rounded ${operator === "MTN" ? "bg-orange-500 text-white" : ""
-                            }`}
-                    >
-                        MTN
-                    </button>
-
-                    <button
-                        onClick={() => setOperator("ORANGE")}
-                        className={`flex-1 p-2 border rounded ${operator === "ORANGE" ? "bg-orange-500 text-white" : ""
-                            }`}
-                    >
-                        ORANGE
-                    </button>
-                </div>
 
                 {/* Bouton */}
                 <button
