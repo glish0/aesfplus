@@ -28,7 +28,12 @@ export async function enregistrerDon(donData: donDataT) {
         .single();
 
     if (error) {
-        console.error(error);
+        console.error("Supabase error:", error);
+        console.error("Error details:", {
+            code: error.code,
+            message: error.message,
+            details: error.details
+        });
         throw new Error("Erreur lors de l'enregistrement");
     }
 

@@ -23,9 +23,6 @@ export async function POST(req) {
         const password = process.env.FREEMO_SECRET_KEY;
 
         const basicAuth = Buffer.from(`${username}:${password}`).toString("base64");
-        console.log('body', body)
-        console.log('basicAuth', basicAuth)
-        console.log('basicAuth', basicAuth)
 
         const paymentRes = await fetch(`https://api-v2.freemopay.com/api/v2/payment`, {
             method: "POST",
