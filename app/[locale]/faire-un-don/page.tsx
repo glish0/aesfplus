@@ -19,7 +19,7 @@ export default function DonationPage() {
         return () => clearInterval(interval);
     }, []);
 
-    const [selectedAmount, setSelectedAmount] = useState(1000);
+    const [selectedAmount, setSelectedAmount] = useState("");
     const [formData, setFormData] = useState({
         email: "",
         firstName: "",
@@ -47,6 +47,9 @@ export default function DonationPage() {
             try {
                 const res = await fetch(`/api/freemopay/status/${reference}`);
                 const statusData = await res.json();
+                console.log('res, ref', res)
+                console.log('res, statusData', statusData)
+
 
                 if (statusData.status === "SUCCESS") {
                     clearInterval(interval);
@@ -65,6 +68,7 @@ export default function DonationPage() {
                     }
                 }
             } catch (err) {
+                console.log('err', err)
                 console.error("Polling error", err);
             }
         };
@@ -121,7 +125,7 @@ export default function DonationPage() {
 
                 {/* Montants */}
                 <div className="grid grid-cols-2 gap-2">
-                    {[1000, 5000, 10000, 25000].map((amount) => (
+                    {['1000', '5000', '10000', '25000'].map((amount) => (
                         <button
                             key={amount}
                             onClick={() => setSelectedAmount(amount)}
