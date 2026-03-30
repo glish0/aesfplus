@@ -1,5 +1,7 @@
 "use client";
 
+
+import { enregistrerTransact } from "@/lib/actions/transaction";
 import { useEffect, useState, useTransition } from "react";
 
 export default function DonationPage() {
@@ -25,6 +27,7 @@ export default function DonationPage() {
         firstName: "",
         lastName: "",
         phoneNumber: "",
+        nom: ""
     });
 
     const [isPending, startTransition] = useTransition();
@@ -86,11 +89,29 @@ export default function DonationPage() {
             return;
         }
 
+
+
         const newReference = "DON_" + Date.now();
         console.log('reference', newReference)
-
         startTransition(async () => {
             try {
+
+                // SAVE DONATION DATA IMMEDIATELY (BEFORE PAYMENT)
+                const donData = {
+                    email: formData.email,
+                    montant: selectedAmount,
+                    status: "PENDING", // Initial status
+                    reference: newReference,
+                    nom: formData.nom,
+
+                };
+
+
+
+                // Save to database with PENDING status
+                const result = await enregistrerTransact(donData);
+
+
                 const res = await fetch("/api/freemopay/payment", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -100,10 +121,10 @@ export default function DonationPage() {
                         reference: newReference,
                     }),
                 });
-                console.log('res', res)
+
 
                 const data = await res.json();
-                console.log('data', data)
+
                 if (!res.ok) {
                     throw new Error(data.message || "Erreur paiement");
                 }
@@ -143,6 +164,21 @@ export default function DonationPage() {
                     className="w-full border p-2 rounded"
                     onChange={(e) =>
                         setFormData({ ...formData, phoneNumber: e.target.value })
+                    }
+                />
+                <input
+                    placeholder="Email"
+                    className="w-full border p-2 rounded"
+                    onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                    }
+                />
+
+                <input
+                    placeholder="Nom"
+                    className="w-full border p-2 rounded"
+                    onChange={(e) =>
+                        setFormData({ ...formData, nom: e.target.value })
                     }
                 />
 

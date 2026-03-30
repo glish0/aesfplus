@@ -19,7 +19,9 @@ export async function POST(req) {
             description: body.description || "Payment via ESFPlus",
             callback: "https://webhook.site/d8ce1009-6240-4d24-9bf9-f6a914d0eb26",
         };
-        console.log('Payment payload:', paymentBody);
+
+
+
 
         const username = process.env.FREEMO_APP_KEY;
         const password = process.env.FREEMO_SECRET_KEY;
@@ -38,8 +40,6 @@ export async function POST(req) {
             body: JSON.stringify(paymentBody),
         });
 
-        console.log('paymentRes', paymentRes)
-
         let data;
 
 
@@ -51,7 +51,6 @@ export async function POST(req) {
             );
         }
 
-        console.log('Payment initiated successfully:', data);
 
         return NextResponse.json({
             success: true,
