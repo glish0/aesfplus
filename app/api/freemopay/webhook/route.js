@@ -1,12 +1,9 @@
 // app/api/freemopay/webhook/route.ts
 import { NextResponse } from 'next/server';
-import { createClient } from "@supabase/supabase-js";
-import { enregistrerDon } from "@/app/actions/donActions";
+import { enregistrerDon } from '@/lib/actions/don'
 
-const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+
+
 
 export async function POST(req) {
     try {
@@ -43,19 +40,7 @@ export async function POST(req) {
         if (status === "SUCCESS" && transaction) {
             console.log("✅ Paiement réussi :", reference);
 
-            // Store donation in database
-            try {
-                const result = await enregistrerDon({
-                    email: transaction.email,
-                    montant: transaction.montant.toString()
-                });
 
-                if (result.success) {
-                    console.log("✅ Don enregistré en base de données:", result.don);
-                }
-            } catch (dbError) {
-                console.error("❌ Erreur lors de l'enregistrement du don:", dbError);
-            }
         } else if (status === "FAILED") {
             console.log("❌ Paiement échoué :", reference, message);
             await enregistrerDon({
