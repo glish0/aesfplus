@@ -24,21 +24,21 @@ export async function POST(req) {
         }
 
         // Update transaction status in database
-        const { data: transaction, error: updateError } = await supabase
-            .from("transactions")
-            .update({
-                status: status === "SUCCESS" ? "SUCCESS" : "FAILED",
-                payment_status: status,
-                error_message: message,
-                updated_at: new Date().toISOString()
-            })
-            .eq("reference", reference)
-            .select()
-            .single();
-
-        if (updateError) {
-            console.error("Failed to update transaction:", updateError);
-        }
+        /*  const { data: transaction, error: updateError } = await supabase
+             .from("transactions")
+             .update({
+                 status: status === "SUCCESS" ? "SUCCESS" : "FAILED",
+                 payment_status: status,
+                 error_message: message,
+                 updated_at: new Date().toISOString()
+             })
+             .eq("reference", reference)
+             .select()
+             .single();
+ 
+         if (updateError) {
+             console.error("Failed to update transaction:", updateError);
+         } */
 
         if (status === "SUCCESS" && transaction) {
             console.log("✅ Paiement réussi :", reference);
@@ -58,6 +58,12 @@ export async function POST(req) {
             }
         } else if (status === "FAILED") {
             console.log("❌ Paiement échoué :", reference, message);
+            await enregistrerDon({
+                statut: transaction.status,
+
+                message: transaction.message,
+                montant: transaction.montant.toString()
+            });
         }
 
         return NextResponse.json({ received: true });

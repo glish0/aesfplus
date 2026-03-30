@@ -17,7 +17,7 @@ export async function POST(req) {
             amount: body.amount,
             externalId: body.reference,
             description: body.description || "Payment via ESFPlus",
-            callback: "https://webhook.site/d8ce1009-6240-4d24-9bf9-f6a914d0eb26",
+            callback: "https://esfplus.vercel.app/api/freemopay/webhook",
         };
 
 

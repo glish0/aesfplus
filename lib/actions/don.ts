@@ -9,12 +9,14 @@ const supabase = createClient(
 
 
 type donDataT = {
-    email: string,
-    montant: string
+    statut: string,
+    montant: string,
+
+    message: string,
 
 }
 export async function enregistrerDon(donData: donDataT) {
-    if (!donData.email || !donData.montant) {
+    if (!donData.message || !donData.montant) {
         throw new Error("Email et montant requis");
     }
 
