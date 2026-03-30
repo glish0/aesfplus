@@ -32,7 +32,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Card, CardContent } from "../ui/card";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "../ui/tabs";
 
 // Interface pour les témoignages
 interface Testimonial {
@@ -260,15 +259,14 @@ export default function NosRealisations({ dict }: { dict: AboutDict }) {
                                 </h3>
                                 <p className="text-gray-700 leading-relaxed">
                                     Dans le cadre du lancement, un atelier de formation a été organisé pour préparer
-                                    ces jeunes filles à leur nouveau rôle au sein du club. Cet atelier a couvert des
-                                    thématiques essentielles comme le leadership, l'autonomisation et le développement
-                                    personnel, posant ainsi les bases solides pour le succès futur du programme.
+                                    ces jeunes filles a etre autonome. Cet atelier portait sur la formation des prduit ménager comme le savon liquide, l'eau de javel, vinaigre et gel de douche,
+                                    posant ainsi les bases solides pour le succès futur du programme.
                                 </p>
 
                                 {/* Tags */}
                                 <div className="flex flex-wrap gap-2 mt-4">
                                     <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">
-                                        Leadership
+                                        Fabrication des produits Menager
                                     </span>
                                     <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">
                                         Autonomisation
@@ -279,6 +277,25 @@ export default function NosRealisations({ dict }: { dict: AboutDict }) {
                                 </div>
                             </div>
                         </div>
+                        <motion.div variants={fadeInUp} className="mt-10">
+                            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                                <Image
+                                    src="/femme-de-demain.jpg"
+                                    alt="Lancement du Club Femme de Demain à Bertoua"
+                                    width={600}
+                                    height={800}
+                                    className="w-full h-auto object-cover"
+                                />
+                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                                    <p className="text-white text-sm">
+                                        Atelier
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Badge d'information supplémentaire */}
+
+                        </motion.div>
                     </motion.div>
                 </div>
             </section>
@@ -372,88 +389,131 @@ export default function NosRealisations({ dict }: { dict: AboutDict }) {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        className="grid md:grid-cols-3 gap-8 mb-16"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full gap-6 md:gap-8 mb-10"
                     >
                         {/* Objectif Général */}
-                        <motion.div variants={fadeInUp} className="bg-gradient-to-br from-emerald-50 to-white rounded-2xl shadow-lg p-8 border border-emerald-100 col-span-3 md:col-span-1">
+                        <motion.div
+                            variants={fadeInUp}
+                            className="bg-gradient-to-br from-emerald-50 to-white rounded-2xl shadow-lg p-6 md:p-8 border border-emerald-100 sm:col-span-2 lg:col-span-1 hover:shadow-xl transition-all duration-300"
+                        >
                             <div className="bg-emerald-600 text-white rounded-full w-12 h-12 flex items-center justify-center mb-6">
                                 <Target className="w-6 h-6" />
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-4">Objectif Général</h3>
+
+                            <h3 className="text-xl font-bold text-gray-900 mb-4">
+                                Objectif Général
+                            </h3>
+
                             <p className="text-gray-700 leading-relaxed">
-                                Vulgariser et mettre en valeur les différentes méthodes contraceptives, en
-                                amenant des adolescents/jeunes à plus de connaissance sur les services de
-                                santé sexuelle et reproductive.
+                                Vulgariser et mettre en valeur les différentes méthodes contraceptives,
+                                en amenant des adolescents/jeunes à plus de connaissance sur les services
+                                de santé sexuelle et reproductive.
                             </p>
                         </motion.div>
 
-                        {/* Objectifs Spécifiques - Partie 1 */}
-                        <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-lg p-8 border border-emerald-100">
+                        {/* Objectif Spécifique 1 */}
+                        <motion.div
+                            variants={fadeInUp}
+                            className="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-emerald-100 hover:shadow-xl transition-all duration-300"
+                        >
                             <div className="bg-emerald-100 text-emerald-700 rounded-full w-12 h-12 flex items-center justify-center mb-6">
                                 <span className="font-bold text-lg">1</span>
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-4">Objectif Spécifique 1</h3>
+
+                            <h3 className="text-xl font-bold text-gray-900 mb-4">
+                                Objectif Spécifique 1
+                            </h3>
+
                             <p className="text-gray-700 leading-relaxed">
-                                Sensibilisation d'au moins <span className="font-bold text-emerald-600">150 adolescents/jeunes</span> sur l'accès aux
-                                services de santé sexuelle et reproductive et la disponibilité des
-                                produits contraceptifs.
+                                Sensibilisation d'au moins{" "}
+                                <span className="font-bold text-emerald-600">
+                                    150 adolescents/jeunes
+                                </span>{" "}
+                                sur l'accès aux services de santé sexuelle et reproductive et la
+                                disponibilité des produits contraceptifs.
                             </p>
+
                             <div className="mt-4 bg-emerald-50 rounded-lg p-3">
                                 <div className="flex items-center gap-2">
                                     <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                        <div className="bg-emerald-600 h-2.5 rounded-full" style={{ width: '75%' }}></div>
+                                        <div
+                                            className="bg-emerald-600 h-2.5 rounded-full"
+                                            style={{ width: "75%" }}
+                                        ></div>
                                     </div>
-                                    <span className="text-sm font-medium text-emerald-700">150+</span>
+                                    <span className="text-sm font-medium text-emerald-700">
+                                        150+
+                                    </span>
                                 </div>
                             </div>
                         </motion.div>
 
-                        {/* Objectifs Spécifiques - Partie 2 */}
-                        <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-lg p-8 border border-emerald-100">
+                        {/* Objectif Spécifique 2 */}
+                        <motion.div
+                            variants={fadeInUp}
+                            className="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-emerald-100 hover:shadow-xl transition-all duration-300"
+                        >
                             <div className="bg-emerald-100 text-emerald-700 rounded-full w-12 h-12 flex items-center justify-center mb-6">
                                 <span className="font-bold text-lg">2</span>
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-4">Objectif Spécifique 2</h3>
+
+                            <h3 className="text-xl font-bold text-gray-900 mb-4">
+                                Objectif Spécifique 2
+                            </h3>
+
                             <p className="text-gray-700 leading-relaxed">
                                 Sensibiliser les adolescents/jeunes sur la disponibilité et la
-                                fréquentation des <span className="font-bold text-emerald-600">USRA-J</span>.
+                                fréquentation des{" "}
+                                <span className="font-bold text-emerald-600">USRA-J</span>.
                             </p>
+
                             <div className="mt-4 flex items-center gap-2 text-sm text-emerald-600 bg-emerald-50 p-3 rounded-lg">
                                 <MapPin className="w-4 h-4" />
-                                <span>Unités de Santé Reproductive pour Adolescents et Jeunes</span>
+                                <span>
+                                    Unités de Santé Reproductive pour Adolescents et Jeunes
+                                </span>
                             </div>
                         </motion.div>
 
-                        {/* Objectifs Spécifiques - Partie 3 */}
-                        <motion.div variants={fadeInUp} className="bg-white rounded-2xl shadow-lg p-8 border border-emerald-100 md:col-start-2">
+                        {/* Objectif Spécifique 3 */}
+                        <motion.div
+                            variants={fadeInUp}
+                            className="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-emerald-100 sm:col-span-2 lg:col-span-1 hover:shadow-xl transition-all duration-300"
+                        >
                             <div className="bg-emerald-100 text-emerald-700 rounded-full w-12 h-12 flex items-center justify-center mb-6">
                                 <span className="font-bold text-lg">3</span>
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-4">Objectif Spécifique 3</h3>
+
+                            <h3 className="text-xl font-bold text-gray-900 mb-4">
+                                Objectif Spécifique 3
+                            </h3>
+
                             <p className="text-gray-700 leading-relaxed">
                                 Valoriser auprès des adolescents/jeunes les différentes méthodes
                                 contraceptives.
                             </p>
 
-                            {/* Méthodes contraceptives - Tags */}
+                            {/* Méthodes contraceptives */}
                             <div className="mt-6">
-                                <p className="text-sm font-medium text-gray-500 mb-3">Méthodes présentées :</p>
+                                <p className="text-sm font-medium text-gray-500 mb-3">
+                                    Méthodes présentées :
+                                </p>
+
                                 <div className="flex flex-wrap gap-2">
-                                    <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm">
-                                        Préservatifs
-                                    </span>
-                                    <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm">
-                                        Pilules
-                                    </span>
-                                    <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm">
-                                        Implants
-                                    </span>
-                                    <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm">
-                                        Injectables
-                                    </span>
-                                    <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm">
-                                        DIU
-                                    </span>
+                                    {[
+                                        "Préservatifs",
+                                        "Pilules",
+                                        "Implants",
+                                        "Injectables",
+                                        "DIU",
+                                    ].map((item, index) => (
+                                        <span
+                                            key={index}
+                                            className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm hover:bg-emerald-200 transition"
+                                        >
+                                            {item}
+                                        </span>
+                                    ))}
                                 </div>
                             </div>
                         </motion.div>

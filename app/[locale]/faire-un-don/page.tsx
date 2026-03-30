@@ -83,6 +83,7 @@ export default function DonationPage() {
         }
 
         const newReference = "DON_" + Date.now();
+        console.log('reference', newReference)
 
         startTransition(async () => {
             try {
@@ -95,9 +96,10 @@ export default function DonationPage() {
                         reference: newReference,
                     }),
                 });
+                console.log('res', res)
 
                 const data = await res.json();
-
+                console.log('data', data)
                 if (!res.ok) {
                     throw new Error(data.message || "Erreur paiement");
                 }
@@ -106,6 +108,7 @@ export default function DonationPage() {
                 setReference(newReference);
                 setShouldPoll(true);
             } catch (err: any) {
+                console.log('err', err)
                 setError(err.message);
             }
         });
