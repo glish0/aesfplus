@@ -3,8 +3,8 @@
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    "https://fpjvgxvlinotwtjvaurz.supabase.co",
+    "sb_publishable_1Q_mAQxYtmAL3XWZQaGTWA_mFIcFLWv"
 );
 
 

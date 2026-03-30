@@ -8,7 +8,6 @@ import { enregistrerDon } from '@/lib/actions/don'
 export async function POST(req) {
     try {
         const body = await req.json();
-        console.log("Webhook reçu :", body);
 
         const { reference, status, message } = body;
 
@@ -37,7 +36,7 @@ export async function POST(req) {
              console.error("Failed to update transaction:", updateError);
          } */
 
-        if (status === "SUCCESS" && transaction) {
+        if (status === "SUCCESS") {
             console.log("✅ Paiement réussi :", reference);
 
 
@@ -45,7 +44,6 @@ export async function POST(req) {
             console.log("❌ Paiement échoué :", reference, message);
             await enregistrerDon({
                 statut: transaction.status,
-
                 message: transaction.message,
                 montant: transaction.montant.toString()
             });
