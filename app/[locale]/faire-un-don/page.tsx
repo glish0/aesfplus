@@ -72,9 +72,11 @@ export default function DonationPage() {
                         reference,
                     }),
                 });
+                console.log('hand res', res)
+
 
                 const data = await res.json();
-
+                console.log('hand data', data)
                 if (!res.ok) {
                     throw new Error(data.message || "Erreur paiement");
                 }
@@ -88,6 +90,7 @@ export default function DonationPage() {
                     );
                     const statusData = await statusRes.json();
 
+                    console.log('hand statusData', statusData)
                     if (statusData.status === "SUCCESS") {
                         clearInterval(interval);
                         setSuccess("Paiement réussi 🎉");
@@ -100,6 +103,7 @@ export default function DonationPage() {
                 }, 5000);
 
             } catch (err: any) {
+                console.log('err res', err)
                 setError(err.message);
             }
         });

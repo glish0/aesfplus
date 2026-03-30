@@ -27,7 +27,7 @@ export async function GET() {
                 { status: res.status }
             );
         }
-
+        console.log('data token', data)
         // The API likely returns { token: "..." } – adjust if different
         return Response.json(data);
     } catch (err) {
