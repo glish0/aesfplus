@@ -20,14 +20,14 @@ export async function POST(req) {
         const token = tokenData.access_token;
 
         // 2. Initiate payment using the correct payload
-        const paymentRes = await fetch(`${process.env.FREEMO_BASE_URL}/api/v2/payment`, {
+        const paymentRes = await fetch(`https://api-v2.freemopay.com/api/v2/payment`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                "phone": "2376xxxxxxxx",
+                "phone": "237655889677",
                 "amount": "100",
                 "reference": "order-12345",
                 "description": "Test payment",
