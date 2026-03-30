@@ -3,7 +3,7 @@ export async function POST(req) {
         const body = await req.json();
 
         // 1. récupérer token
-        const tokenRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/freemopay/token`);
+        const tokenRes = await fetch(`https://api-v2.freemopay.com/api/freemopay/token`);
 
         const tokenText = await tokenRes.text();
         const tokenData = tokenText ? JSON.parse(tokenText) : {};
