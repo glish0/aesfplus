@@ -3,14 +3,16 @@ export async function POST(req) {
         const body = await req.json();
 
         // 1. récupérer token
-        const tokenRes = await fetch(`https://api-v2.freemopay.com/api/freemopay/token`);
-
-        const tokenText = await tokenRes.text();
-        const tokenData = tokenText ? JSON.parse(tokenText) : {};
+        // 1. Get token from your local endpoint
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+        const tokenRes = await fetch(`${baseUrl}/api/freemopay/token`, {
+            cache: "no-store",
+        });
+        const tokenData = await tokenRes.json();
 
         if (!tokenRes.ok) {
             return Response.json(
-                { message: tokenData?.message || "Erreur récupération token" },
+                { message: tokenData.message || "Failed to get token" },
                 { status: 500 }
             );
         }
