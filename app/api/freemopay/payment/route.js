@@ -6,25 +6,10 @@ export async function POST(req) {
         const body = await req.json();
         console.log('Payment request body:', body);
 
-        // 1. Get token from your internal endpoint
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-            || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
-        const tokenUrl = `${baseUrl}/api/freemopay/token`;
-        console.log('Fetching token from:', tokenUrl);
 
-        const tokenRes = await fetch(tokenUrl.access_token, { cache: 'no-store' });
-        if (!tokenRes.ok) {
-            const tokenText = await tokenRes.text();
-            console.error('Token fetch failed:', tokenRes.status, tokenText);
-            return NextResponse.json(
-                { message: 'Failed to get token', details: tokenText },
-                { status: 500 }
-            );
-        }
 
-        const tokenData = await tokenRes.json();
-        const token = tokenData.access_token; // adjust if the key is different (e.g., access_token)
-        console.log('Token received:', token ? 'yes' : 'no');
+
+
 
         // 2. Initiate payment with FreemoPay
         const paymentBody = {
@@ -32,32 +17,31 @@ export async function POST(req) {
             amount: body.amount,
             externalId: body.reference,
             description: body.description || "Payment via ESFPlus",
-            callback: body.callback_url || "https://esfplus.vercel.app/fr/api/freemopay/webhook",
+            callback: "https://webhook.site/d8ce1009-6240-4d24-9bf9-f6a914d0eb26",
         };
         console.log('Payment payload:', paymentBody);
 
-        const paymentRes = await fetch(`${process.env.FREEMO_BASE_URL}/api/v2/payment`, {
+        const username = process.env.FREEMO_APP_KEY;
+        const password = process.env.FREEMO_SECRET_KEY;
+
+        const basicAuth = Buffer.from(`${username}:${password}`).toString("base64");
+        console.log('body', body)
+        console.log('basicAuth', basicAuth)
+        console.log('basicAuth', basicAuth)
+
+        const paymentRes = await fetch(`https://api-v2.freemopay.com/api/v2/payment`, {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Basic ${basicAuth}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(paymentBody),
         });
 
-        const text = await paymentRes.text();
-        console.log('Payment response raw:', text);
+        console.log('paymentRes', paymentRes)
 
         let data;
-        try {
-            data = text ? JSON.parse(text) : {};
-        } catch {
-            console.error('Invalid JSON from FreemoPay:', text);
-            return NextResponse.json(
-                { message: "Invalid response from FreemoPay", raw: text },
-                { status: 500 }
-            );
-        }
+
 
         if (!paymentRes.ok) {
             console.error('Payment initiation failed:', paymentRes.status, data);
@@ -68,7 +52,12 @@ export async function POST(req) {
         }
 
         console.log('Payment initiated successfully:', data);
-        return NextResponse.json(data);
+
+        return NextResponse.json({
+            success: true,
+            data: data,
+            message: 'Payment initiated successfully'
+        })
     } catch (err) {
         console.error('Payment endpoint error:', err);
         return NextResponse.json(

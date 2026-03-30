@@ -36,12 +36,12 @@ export default function DonationPage() {
     const [reference, setReference] = useState("");
 
     // Polling effect
-    useEffect(() => {
+    /* useEffect(() => {
         if (!shouldPoll || !reference) return;
 
         let interval: NodeJS.Timeout;
         let attempts = 0;
-        const maxAttempts = 30; // 30 * 5s = 2.5 minutes
+        const maxAttempts = 30; 
 
         const poll = async () => {
             try {
@@ -75,7 +75,7 @@ export default function DonationPage() {
 
         interval = setInterval(poll, 5000);
         return () => clearInterval(interval);
-    }, [shouldPoll, reference]);
+    }, [shouldPoll, reference]); */
 
     const handleSubmit = () => {
         setError("");
@@ -125,7 +125,7 @@ export default function DonationPage() {
 
                 {/* Montants */}
                 <div className="grid grid-cols-2 gap-2">
-                    {['1000', '5000', '10000', '25000'].map((amount) => (
+                    {['100', '5000', '10000', '25000'].map((amount) => (
                         <button
                             key={amount}
                             onClick={() => setSelectedAmount(amount)}

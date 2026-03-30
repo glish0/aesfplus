@@ -10,7 +10,7 @@ export async function GET(
 
         // 1. Get a fresh token from your internal endpoint
         const baseUrl = 'https://esfplus.vercel.app/' || "http://localhost:3000";
-        const tokenRes = await fetch(`${baseUrl}/api/freemopay/token`, {
+        const tokenRes = await fetch(`https://esfplus.vercel.app/api/freemopay/token`, {
             cache: "no-store",
         });
 
@@ -23,7 +23,7 @@ export async function GET(
         }
 
         const tokenData = await tokenRes.json();
-        const token = tokenData.access_token; // adjust if the key is different (e.g., access_token)
+        const token = tokenData.access_token;
 
         // 2. Call FreemoPay status API
         const apiUrl = `${process.env.FREEMO_BASE_URL}/api/v2/payment/${reference}`;
