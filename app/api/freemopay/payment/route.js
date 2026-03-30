@@ -12,7 +12,7 @@ export async function POST(req) {
         const tokenUrl = `${baseUrl}/api/freemopay/token`;
         console.log('Fetching token from:', tokenUrl);
 
-        const tokenRes = await fetch(tokenUrl, { cache: 'no-store' });
+        const tokenRes = await fetch(tokenUrl.access_token, { cache: 'no-store' });
         if (!tokenRes.ok) {
             const tokenText = await tokenRes.text();
             console.error('Token fetch failed:', tokenRes.status, tokenText);
@@ -23,7 +23,7 @@ export async function POST(req) {
         }
 
         const tokenData = await tokenRes.json();
-        const token = tokenData.token; // adjust if the key is different (e.g., access_token)
+        const token = tokenData.access_token; // adjust if the key is different (e.g., access_token)
         console.log('Token received:', token ? 'yes' : 'no');
 
         // 2. Initiate payment with FreemoPay
